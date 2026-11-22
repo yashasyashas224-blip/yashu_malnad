@@ -1,0 +1,2504 @@
+{
+  "users": [
+    [
+      "user-admin-default",
+      {
+        "id": "user-admin-default",
+        "name": "Dr. C. V. Venkatesh (Principal)",
+        "email": "principal@mcehassan.ac.in",
+        "phone": "+919448123456",
+        "institutionalId": "MCE-ADMIN-001",
+        "role": "super_admin",
+        "departmentId": "b-admin",
+        "verificationStatus": "verified",
+        "isEmailVerified": true,
+        "isPhoneVerified": true,
+        "createdAt": "2026-11-22T06:49:23.035Z",
+        "updatedAt": "2026-11-22T06:49:23.035Z"
+      }
+    ],
+    [
+      "mce-user-g-1795330163046",
+      {
+        "id": "mce-user-g-1795330163046",
+        "name": "Aditya Gowda",
+        "email": "random.student@gmail.com",
+        "phone": "",
+        "institutionalId": "4MC22CS089",
+        "role": "student",
+        "departmentId": "dept-cse",
+        "verificationStatus": "verified",
+        "isEmailVerified": true,
+        "isPhoneVerified": false,
+        "googleId": "g-999888777",
+        "createdAt": "2026-11-22T06:49:23.046Z",
+        "updatedAt": "2026-11-22T06:49:23.046Z"
+      }
+    ],
+    [
+      "mce-user-g-1795330294154",
+      {
+        "id": "mce-user-g-1795330294154",
+        "name": "Aditya Gowda",
+        "email": "aditya.gowda.personal@gmail.com",
+        "phone": "",
+        "institutionalId": "4MC22CS089",
+        "role": "student",
+        "departmentId": "dept-cse",
+        "verificationStatus": "verified",
+        "isEmailVerified": true,
+        "isPhoneVerified": false,
+        "googleId": "g-linked-1795330294154",
+        "createdAt": "2026-11-22T06:51:34.154Z",
+        "updatedAt": "2026-11-22T06:51:34.154Z"
+      }
+    ],
+    [
+      "mce-user-1795333318924-czgd",
+      {
+        "id": "mce-user-1795333318924-czgd",
+        "name": "Darshan Patel",
+        "email": "darshan.21cv030@mcehassan.ac.in",
+        "phone": "+919876543210",
+        "institutionalId": "4MC21CV030",
+        "role": "student",
+        "departmentId": "dept-civil",
+        "verificationStatus": "verified",
+        "isEmailVerified": true,
+        "isPhoneVerified": true,
+        "createdAt": "2026-11-22T07:41:58.983Z",
+        "updatedAt": "2026-11-22T07:41:58.983Z"
+      }
+    ],
+    [
+      "mce-user-1795355889613-1v8o",
+      {
+        "id": "mce-user-1795355889613-1v8o",
+        "name": "Gagan S",
+        "email": "gagan.22me052@mcehassan.ac.in",
+        "phone": "+919876543210",
+        "institutionalId": "4MC22ME052",
+        "role": "student",
+        "departmentId": "dept-mech",
+        "verificationStatus": "verified",
+        "isEmailVerified": true,
+        "isPhoneVerified": true,
+        "createdAt": "2026-11-22T13:58:09.674Z",
+        "updatedAt": "2026-11-22T13:58:09.674Z"
+      }
+    ]
+  ],
+  "userPasswords": [
+    [
+      "user-admin-default",
+      "$2b$10$XjBjhSW3QTe4dMcexZFb5OVbtr9jeTPEN.rc2.eCeirPS48QCMVLe"
+    ],
+    [
+      "mce-user-1795333318924-czgd",
+      "$2b$10$MC4I6L69oIBjePUjeAdHn.5VthRhNsXqoI7UlUr/gc3N7A4Fs.GZq"
+    ],
+    [
+      "mce-user-1795355889613-1v8o",
+      "$2b$10$RKpPCJwGx3hBI7kwquscV.08SM8kzzXvQa7q3ShKfsuUattuz/XTa"
+    ]
+  ],
+  "verificationRequests": [],
+  "buildings": [
+    [
+      "b-admin",
+      {
+        "id": "b-admin",
+        "name": "Administrative Block (Main Building)",
+        "shortCode": "ADMIN",
+        "category": "administrative",
+        "description": "Houses the Principal's Office, Administrative Desks, Examination Section, Accounts, and Academic Dean offices.",
+        "coordinates": [
+          76.10245,
+          13.02365
+        ],
+        "floorsCount": 3,
+        "accessibility": {
+          "wheelchairRamp": true,
+          "elevators": true,
+          "tactilePaving": true,
+          "accessibleWashrooms": true
+        },
+        "verificationStatus": "verified",
+        "verificationNotes": "Verified from MCE institutional records and front Salagame Road orientation."
+      }
+    ],
+    [
+      "b-cse-ise",
+      {
+        "id": "b-cse-ise",
+        "name": "Computer Science & Information Science Complex",
+        "shortCode": "CS-IS",
+        "category": "academic",
+        "description": "Departments of Computer Science & Engineering, Information Science & Engineering, and CSE (AI & ML). Features high-performance computing labs, server rooms, and faculty chambers.",
+        "coordinates": [
+          76.1039,
+          13.02395
+        ],
+        "floorsCount": 4,
+        "accessibility": {
+          "wheelchairRamp": true,
+          "elevators": true,
+          "tactilePaving": false,
+          "accessibleWashrooms": true
+        },
+        "verificationStatus": "verified",
+        "verificationNotes": "Verified building complex in the central academic zone."
+      }
+    ],
+    [
+      "b-civil",
+      {
+        "id": "b-civil",
+        "name": "Civil Engineering Department (CED)",
+        "shortCode": "CIVIL",
+        "category": "academic",
+        "description": "One of the foundation departments of MCE (est. 1960). Houses Basic Material Testing Lab, Geotechnical Lab, Environmental Lab, Concrete & Highway Materials Testing Labs.",
+        "coordinates": [
+          76.10285,
+          13.02435
+        ],
+        "floorsCount": 2,
+        "accessibility": {
+          "wheelchairRamp": true,
+          "elevators": false,
+          "tactilePaving": false,
+          "accessibleWashrooms": true
+        },
+        "verificationStatus": "verified",
+        "verificationNotes": "Verified historical heritage engineering block."
+      }
+    ],
+    [
+      "b-mech",
+      {
+        "id": "b-mech",
+        "name": "Mechanical Engineering Complex & Workshops",
+        "shortCode": "MECH",
+        "category": "academic",
+        "description": "Contains thermal engineering labs, fluid mechanics bays, foundry, machine shop, and advanced manufacturing suites.",
+        "coordinates": [
+          76.1034,
+          13.02485
+        ],
+        "floorsCount": 2,
+        "accessibility": {
+          "wheelchairRamp": true,
+          "elevators": false,
+          "tactilePaving": false,
+          "accessibleWashrooms": true
+        },
+        "verificationStatus": "verified",
+        "verificationNotes": "Verified workshop bays north of the civil quadrangle."
+      }
+    ],
+    [
+      "b-ece",
+      {
+        "id": "b-ece",
+        "name": "Electronics & Communication Engineering Block",
+        "shortCode": "ECE",
+        "category": "academic",
+        "description": "Specialized laboratories for VLSI design, DSP, Embedded Systems, Communication systems, and Microcontrollers.",
+        "coordinates": [
+          76.10315,
+          13.0229
+        ],
+        "floorsCount": 3,
+        "accessibility": {
+          "wheelchairRamp": true,
+          "elevators": true,
+          "tactilePaving": false,
+          "accessibleWashrooms": true
+        },
+        "verificationStatus": "verified",
+        "verificationNotes": "Verified southern academic quadrangle."
+      }
+    ],
+    [
+      "b-eee",
+      {
+        "id": "b-eee",
+        "name": "Electrical & Electronics & Instrumentation Block",
+        "shortCode": "EEE",
+        "category": "academic",
+        "description": "Houses Power Systems, High Voltage, Electrical Machines, and Process Instrumentation labs.",
+        "coordinates": [
+          76.10345,
+          13.0233
+        ],
+        "floorsCount": 3,
+        "accessibility": {
+          "wheelchairRamp": true,
+          "elevators": false,
+          "tactilePaving": false,
+          "accessibleWashrooms": true
+        },
+        "verificationStatus": "verified",
+        "verificationNotes": "Verified block adjacent to ECE."
+      }
+    ],
+    [
+      "b-library",
+      {
+        "id": "b-library",
+        "name": "MCE Central Library & Digital Information Centre",
+        "shortCode": "LIB",
+        "category": "amenity",
+        "description": "Over 94,000+ volumes, IEEE digital access terminal, study cubicles, VTU consortium hub, and 300+ seat reading hall.",
+        "coordinates": [
+          76.1026,
+          13.02325
+        ],
+        "floorsCount": 2,
+        "accessibility": {
+          "wheelchairRamp": true,
+          "elevators": false,
+          "tactilePaving": true,
+          "accessibleWashrooms": true
+        },
+        "verificationStatus": "verified",
+        "verificationNotes": "Verified central library facility."
+      }
+    ],
+    [
+      "b-placement",
+      {
+        "id": "b-placement",
+        "name": "Training & Placement Centre & MCE Auditorium",
+        "shortCode": "T&P",
+        "category": "amenity",
+        "description": "Auditorium for college symposiums, placement interview rooms, group discussion halls, and pre-placement briefing theater.",
+        "coordinates": [
+          76.10255,
+          13.02245
+        ],
+        "floorsCount": 2,
+        "accessibility": {
+          "wheelchairRamp": true,
+          "elevators": false,
+          "tactilePaving": false,
+          "accessibleWashrooms": true
+        },
+        "verificationStatus": "verified",
+        "verificationNotes": "Verified placement facility."
+      }
+    ],
+    [
+      "b-meriise",
+      {
+        "id": "b-meriise",
+        "name": "ME-RIISE Foundation & AICTE IDEA-Lab",
+        "shortCode": "ME-RIISE",
+        "category": "academic",
+        "description": "Technology Business Incubator (TBI), startup prototyping labs, 3D printers, laser cutters, and entrepreneurship cells.",
+        "coordinates": [
+          76.10445,
+          13.02425
+        ],
+        "floorsCount": 2,
+        "accessibility": {
+          "wheelchairRamp": true,
+          "elevators": false,
+          "tactilePaving": false,
+          "accessibleWashrooms": true
+        },
+        "verificationStatus": "verified",
+        "verificationNotes": "Verified innovation center."
+      }
+    ],
+    [
+      "b-hostels",
+      {
+        "id": "b-hostels",
+        "name": "Boys Hostels Complex (Hoysala, Hemavathi & Hasanamba)",
+        "shortCode": "HOSTEL-B",
+        "category": "hostel",
+        "description": "On-campus residential quarters for male students with dining hall, study lounges, and solar hot water facilities.",
+        "coordinates": [
+          76.10515,
+          13.0251
+        ],
+        "floorsCount": 4,
+        "accessibility": {
+          "wheelchairRamp": true,
+          "elevators": false,
+          "tactilePaving": false,
+          "accessibleWashrooms": true
+        },
+        "verificationStatus": "verified",
+        "verificationNotes": "Verified on-campus residential zone."
+      }
+    ],
+    [
+      "b-canteen",
+      {
+        "id": "b-canteen",
+        "name": "Campus Canteen & Student Dining Hub",
+        "shortCode": "CANTEEN",
+        "category": "amenity",
+        "description": "Subsidized fresh meals, breakfast, coffee bar, and social seating area for students and faculty.",
+        "coordinates": [
+          76.10375,
+          13.0236
+        ],
+        "floorsCount": 1,
+        "accessibility": {
+          "wheelchairRamp": true,
+          "elevators": false,
+          "tactilePaving": false,
+          "accessibleWashrooms": true
+        },
+        "verificationStatus": "verified",
+        "verificationNotes": "Verified canteen location."
+      }
+    ],
+    [
+      "b-sports",
+      {
+        "id": "b-sports",
+        "name": "MCE Sports Complex & Athletic Grounds",
+        "shortCode": "SPORTS",
+        "category": "sports",
+        "description": "Full-size cricket/football field, indoor badminton/table tennis stadium, gymnasium, and basketball courts.",
+        "coordinates": [
+          76.1053,
+          13.0223
+        ],
+        "floorsCount": 1,
+        "accessibility": {
+          "wheelchairRamp": true,
+          "elevators": false,
+          "tactilePaving": false,
+          "accessibleWashrooms": true
+        },
+        "verificationStatus": "verified",
+        "verificationNotes": "Verified athletic grounds."
+      }
+    ],
+    [
+      "b-temple",
+      {
+        "id": "b-temple",
+        "name": "Spiritual Enclave (Shree Ganapathi Temple & Dhyana Mandira)",
+        "shortCode": "TEMPLE",
+        "category": "spiritual",
+        "description": "Divya Chaithanya center for yoga, meditation, peace, and spiritual well-being located in the calm northern garden.",
+        "coordinates": [
+          76.1041,
+          13.02595
+        ],
+        "floorsCount": 1,
+        "accessibility": {
+          "wheelchairRamp": true,
+          "elevators": false,
+          "tactilePaving": false,
+          "accessibleWashrooms": false
+        },
+        "verificationStatus": "verified",
+        "verificationNotes": "Verified landmark temple and meditation hall."
+      }
+    ],
+    [
+      "b-security",
+      {
+        "id": "b-security",
+        "name": "Main Security Gate & Visitor Post",
+        "shortCode": "GATE-1",
+        "category": "administrative",
+        "description": "Primary campus entrance on Salagame Road with 24/7 security watch, vehicular barrier, and identity verification.",
+        "coordinates": [
+          76.10185,
+          13.0238
+        ],
+        "floorsCount": 1,
+        "accessibility": {
+          "wheelchairRamp": true,
+          "elevators": false,
+          "tactilePaving": true,
+          "accessibleWashrooms": true
+        },
+        "verificationStatus": "verified",
+        "verificationNotes": "Verified main entrance on Salagame Road."
+      }
+    ],
+    [
+      "b-health",
+      {
+        "id": "b-health",
+        "name": "Campus Health & First Aid Centre",
+        "shortCode": "HEALTH",
+        "category": "amenity",
+        "description": "Emergency primary care, on-call physician, nursing staff, basic triage, and emergency stretcher transfer station.",
+        "coordinates": [
+          76.1022,
+          13.02335
+        ],
+        "floorsCount": 1,
+        "accessibility": {
+          "wheelchairRamp": true,
+          "elevators": false,
+          "tactilePaving": true,
+          "accessibleWashrooms": true
+        },
+        "verificationStatus": "verified",
+        "verificationNotes": "Verified health post near main gate."
+      }
+    ]
+  ],
+  "rooms": [
+    [
+      "room-principal",
+      {
+        "id": "room-principal",
+        "buildingId": "b-admin",
+        "floor": 0,
+        "roomNumber": "ADM-001",
+        "name": "Principal's Office & Board Room",
+        "aliases": [
+          "Principal Chamber",
+          "Director Office",
+          "Board Room"
+        ],
+        "category": "office",
+        "coordinates": [
+          76.1024,
+          13.0236
+        ],
+        "indoorCoordinates": {
+          "x": 12,
+          "y": 15,
+          "corridor": "Main Foyer Left"
+        },
+        "isAccessible": true,
+        "qrCheckpointId": "qr-admin-gf",
+        "verificationStatus": "verified"
+      }
+    ],
+    [
+      "room-exam-cell",
+      {
+        "id": "room-exam-cell",
+        "buildingId": "b-admin",
+        "floor": 1,
+        "roomNumber": "ADM-105",
+        "name": "Examination Section (Autonomous Exam Cell)",
+        "aliases": [
+          "COE Office",
+          "Controller of Examinations",
+          "Marks Card Section"
+        ],
+        "category": "office",
+        "coordinates": [
+          76.10245,
+          13.02365
+        ],
+        "indoorCoordinates": {
+          "x": 25,
+          "y": 30,
+          "corridor": "1st Floor North Wing"
+        },
+        "isAccessible": true,
+        "qrCheckpointId": "qr-admin-1f",
+        "verificationStatus": "verified"
+      }
+    ],
+    [
+      "room-academic-dean",
+      {
+        "id": "room-academic-dean",
+        "buildingId": "b-admin",
+        "floor": 1,
+        "roomNumber": "ADM-102",
+        "name": "Dean Academic Affairs & Student Welfare",
+        "aliases": [
+          "Dean Academics",
+          "Scholarship Counter"
+        ],
+        "category": "office",
+        "coordinates": [
+          76.1025,
+          13.0237
+        ],
+        "indoorCoordinates": {
+          "x": 18,
+          "y": 30,
+          "corridor": "1st Floor South Wing"
+        },
+        "isAccessible": true,
+        "verificationStatus": "verified"
+      }
+    ],
+    [
+      "room-cse-hod",
+      {
+        "id": "room-cse-hod",
+        "buildingId": "b-cse-ise",
+        "floor": 1,
+        "roomNumber": "CS-101",
+        "name": "Department Office & HOD Chamber - CSE",
+        "aliases": [
+          "CSE Department",
+          "CSE HOD Office",
+          "CS Staff Room"
+        ],
+        "category": "office",
+        "coordinates": [
+          76.10385,
+          13.0239
+        ],
+        "indoorCoordinates": {
+          "x": 10,
+          "y": 20,
+          "corridor": "First Floor Central Corridor"
+        },
+        "isAccessible": true,
+        "qrCheckpointId": "qr-csis-1f",
+        "verificationStatus": "verified"
+      }
+    ],
+    [
+      "room-cse-lab-ai",
+      {
+        "id": "room-cse-lab-ai",
+        "buildingId": "b-cse-ise",
+        "floor": 2,
+        "roomNumber": "CS-204",
+        "name": "Artificial Intelligence & Machine Learning Lab",
+        "aliases": [
+          "AI Lab",
+          "ML Lab",
+          "Deep Learning Center"
+        ],
+        "category": "laboratory",
+        "coordinates": [
+          76.10395,
+          13.024
+        ],
+        "indoorCoordinates": {
+          "x": 35,
+          "y": 40,
+          "corridor": "Second Floor East Wing"
+        },
+        "isAccessible": true,
+        "qrCheckpointId": "qr-csis-2f",
+        "verificationStatus": "verified"
+      }
+    ],
+    [
+      "room-cse-cr-301",
+      {
+        "id": "room-cse-cr-301",
+        "buildingId": "b-cse-ise",
+        "floor": 3,
+        "roomNumber": "CS-301",
+        "name": "Lecture Hall CS-301 (Final Year CSE)",
+        "aliases": [
+          "Room 301",
+          "CS Class 301"
+        ],
+        "category": "classroom",
+        "coordinates": [
+          76.1039,
+          13.02395
+        ],
+        "indoorCoordinates": {
+          "x": 20,
+          "y": 50,
+          "corridor": "Third Floor West Wing"
+        },
+        "isAccessible": true,
+        "qrCheckpointId": "qr-csis-3f",
+        "verificationStatus": "verified"
+      }
+    ],
+    [
+      "room-ise-hod",
+      {
+        "id": "room-ise-hod",
+        "buildingId": "b-cse-ise",
+        "floor": 2,
+        "roomNumber": "IS-201",
+        "name": "Department Office & HOD Chamber - ISE",
+        "aliases": [
+          "ISE Department",
+          "ISE HOD Office",
+          "Info Science Office"
+        ],
+        "category": "office",
+        "coordinates": [
+          76.1038,
+          13.02385
+        ],
+        "indoorCoordinates": {
+          "x": 12,
+          "y": 40,
+          "corridor": "Second Floor West Wing"
+        },
+        "isAccessible": true,
+        "verificationStatus": "verified"
+      }
+    ],
+    [
+      "room-civil-concrete-lab",
+      {
+        "id": "room-civil-concrete-lab",
+        "buildingId": "b-civil",
+        "floor": 0,
+        "roomNumber": "CV-004",
+        "name": "Concrete & Highway Materials Testing Lab",
+        "aliases": [
+          "Concrete Lab",
+          "Highway Materials Lab",
+          "Civil Testing Lab"
+        ],
+        "category": "laboratory",
+        "coordinates": [
+          76.1028,
+          13.0244
+        ],
+        "indoorCoordinates": {
+          "x": 15,
+          "y": 10,
+          "corridor": "Ground Floor Heavy Lab Bay"
+        },
+        "isAccessible": true,
+        "qrCheckpointId": "qr-civil-gf",
+        "verificationStatus": "verified"
+      }
+    ],
+    [
+      "room-civil-survey-store",
+      {
+        "id": "room-civil-survey-store",
+        "buildingId": "b-civil",
+        "floor": 0,
+        "roomNumber": "CV-002",
+        "name": "Surveying Instrument & Total Station Room",
+        "aliases": [
+          "Survey Lab",
+          "Survey Store"
+        ],
+        "category": "laboratory",
+        "coordinates": [
+          76.1029,
+          13.0243
+        ],
+        "indoorCoordinates": {
+          "x": 25,
+          "y": 10,
+          "corridor": "Ground Floor Corridor"
+        },
+        "isAccessible": true,
+        "verificationStatus": "verified"
+      }
+    ],
+    [
+      "room-mech-workshop",
+      {
+        "id": "room-mech-workshop",
+        "buildingId": "b-mech",
+        "floor": 0,
+        "roomNumber": "ME-001",
+        "name": "Central Machine Shop & CNC Bay",
+        "aliases": [
+          "Workshop",
+          "Machine Shop",
+          "CNC Lab",
+          "Mechanical Workshop"
+        ],
+        "category": "laboratory",
+        "coordinates": [
+          76.10335,
+          13.0248
+        ],
+        "indoorCoordinates": {
+          "x": 50,
+          "y": 50,
+          "corridor": "Main Workshop Floor"
+        },
+        "isAccessible": true,
+        "qrCheckpointId": "qr-mech-gf",
+        "verificationStatus": "verified"
+      }
+    ],
+    [
+      "room-ece-vlsi-lab",
+      {
+        "id": "room-ece-vlsi-lab",
+        "buildingId": "b-ece",
+        "floor": 1,
+        "roomNumber": "EC-103",
+        "name": "VLSI Design & Embedded Systems Laboratory",
+        "aliases": [
+          "VLSI Lab",
+          "Microprocessor Lab",
+          "Embedded Lab"
+        ],
+        "category": "laboratory",
+        "coordinates": [
+          76.1031,
+          13.02295
+        ],
+        "indoorCoordinates": {
+          "x": 20,
+          "y": 25,
+          "corridor": "First Floor North Bay"
+        },
+        "isAccessible": true,
+        "qrCheckpointId": "qr-ece-1f",
+        "verificationStatus": "verified"
+      }
+    ],
+    [
+      "room-lib-reference",
+      {
+        "id": "room-lib-reference",
+        "buildingId": "b-library",
+        "floor": 0,
+        "roomNumber": "LIB-001",
+        "name": "Central Reference & Circulation Desk",
+        "aliases": [
+          "Library Counter",
+          "Book Issue",
+          "Circulation"
+        ],
+        "category": "library",
+        "coordinates": [
+          76.1026,
+          13.0232
+        ],
+        "indoorCoordinates": {
+          "x": 15,
+          "y": 20,
+          "corridor": "Entrance Foyer"
+        },
+        "isAccessible": true,
+        "qrCheckpointId": "qr-lib-gf",
+        "verificationStatus": "verified"
+      }
+    ],
+    [
+      "room-lib-digital",
+      {
+        "id": "room-lib-digital",
+        "buildingId": "b-library",
+        "floor": 1,
+        "roomNumber": "LIB-102",
+        "name": "Digital Library & VTU E-Learning Center",
+        "aliases": [
+          "Digital Library",
+          "Internet Browsing Center",
+          "IEEE Terminal"
+        ],
+        "category": "library",
+        "coordinates": [
+          76.10265,
+          13.0233
+        ],
+        "indoorCoordinates": {
+          "x": 20,
+          "y": 35,
+          "corridor": "First Floor E-Resource Hall"
+        },
+        "isAccessible": true,
+        "verificationStatus": "verified"
+      }
+    ],
+    [
+      "room-canteen-counter",
+      {
+        "id": "room-canteen-counter",
+        "buildingId": "b-canteen",
+        "floor": 0,
+        "roomNumber": "CAN-01",
+        "name": "Main Canteen Counter & Dining Area",
+        "aliases": [
+          "Canteen",
+          "Cafeteria",
+          "Mess Counter",
+          "Food Court"
+        ],
+        "category": "canteen",
+        "coordinates": [
+          76.10375,
+          13.0236
+        ],
+        "isAccessible": true,
+        "qrCheckpointId": "qr-canteen",
+        "verificationStatus": "verified"
+      }
+    ],
+    [
+      "room-health-clinic",
+      {
+        "id": "room-health-clinic",
+        "buildingId": "b-health",
+        "floor": 0,
+        "roomNumber": "HC-01",
+        "name": "Campus Dispensary & Medical Doctor Cabin",
+        "aliases": [
+          "Doctor Room",
+          "First Aid Station",
+          "Infirmary",
+          "Health Center"
+        ],
+        "category": "first_aid",
+        "coordinates": [
+          76.1022,
+          13.02335
+        ],
+        "isAccessible": true,
+        "qrCheckpointId": "qr-health",
+        "verificationStatus": "verified"
+      }
+    ],
+    [
+      "room-security-desk",
+      {
+        "id": "room-security-desk",
+        "buildingId": "b-security",
+        "floor": 0,
+        "roomNumber": "SEC-01",
+        "name": "Main Security Gate & Visitor Desk",
+        "aliases": [
+          "Gate Security",
+          "Main Gate Office",
+          "Visitor Pass Counter"
+        ],
+        "category": "security",
+        "coordinates": [
+          76.10185,
+          13.0238
+        ],
+        "isAccessible": true,
+        "qrCheckpointId": "qr-gate-main",
+        "verificationStatus": "verified"
+      }
+    ],
+    [
+      "room-ced-survey-subroom",
+      {
+        "id": "room-ced-survey-subroom",
+        "buildingId": "b-civil",
+        "floor": 1,
+        "roomNumber": "CV-108",
+        "name": "Civil CAD Analysis Lab (Annex)",
+        "aliases": [
+          "Civil CAD Lab",
+          "Room 108"
+        ],
+        "category": "laboratory",
+        "coordinates": [
+          76.10295,
+          13.02445
+        ],
+        "isAccessible": false,
+        "verificationStatus": "needs_verification"
+      }
+    ],
+    [
+      "room-mech-fluid-substation",
+      {
+        "id": "room-mech-fluid-substation",
+        "buildingId": "b-mech",
+        "floor": 0,
+        "roomNumber": "ME-012",
+        "name": "Hydraulics & Fluid Machinery Sub-Bay",
+        "aliases": [
+          "Fluid Mechanics Lab",
+          "Room 012"
+        ],
+        "category": "laboratory",
+        "coordinates": [
+          76.10355,
+          13.02495
+        ],
+        "isAccessible": true,
+        "verificationStatus": "needs_verification"
+      }
+    ]
+  ],
+  "nodes": [
+    [
+      "node-gate-salagame",
+      {
+        "id": "node-gate-salagame",
+        "name": "Salagame Road Main Entrance Gate",
+        "type": "outdoor_gate",
+        "coordinates": [
+          76.10185,
+          13.0238
+        ],
+        "isAccessible": true
+      }
+    ],
+    [
+      "node-security-junction",
+      {
+        "id": "node-security-junction",
+        "name": "Front Security Checkpoint Junction",
+        "type": "outdoor_junction",
+        "coordinates": [
+          76.10205,
+          13.02375
+        ],
+        "isAccessible": true
+      }
+    ],
+    [
+      "node-admin-circle",
+      {
+        "id": "node-admin-circle",
+        "name": "Administrative Quadrangle Roundabout",
+        "type": "outdoor_junction",
+        "coordinates": [
+          76.10235,
+          13.02365
+        ],
+        "isAccessible": true
+      }
+    ],
+    [
+      "node-admin-entrance",
+      {
+        "id": "node-admin-entrance",
+        "name": "Administrative Block Main Porch",
+        "type": "building_entrance",
+        "coordinates": [
+          76.10242,
+          13.02365
+        ],
+        "buildingId": "b-admin",
+        "floor": 0,
+        "isAccessible": true
+      }
+    ],
+    [
+      "node-library-junction",
+      {
+        "id": "node-library-junction",
+        "name": "Central Library Plaza Junction",
+        "type": "outdoor_junction",
+        "coordinates": [
+          76.10245,
+          13.02325
+        ],
+        "isAccessible": true
+      }
+    ],
+    [
+      "node-library-entrance",
+      {
+        "id": "node-library-entrance",
+        "name": "Central Library Portico",
+        "type": "building_entrance",
+        "coordinates": [
+          76.10255,
+          13.02325
+        ],
+        "buildingId": "b-library",
+        "floor": 0,
+        "isAccessible": true
+      }
+    ],
+    [
+      "node-placement-entrance",
+      {
+        "id": "node-placement-entrance",
+        "name": "Training & Placement / Auditorium Entrance",
+        "type": "building_entrance",
+        "coordinates": [
+          76.1025,
+          13.02245
+        ],
+        "buildingId": "b-placement",
+        "floor": 0,
+        "isAccessible": true
+      }
+    ],
+    [
+      "node-civil-avenue",
+      {
+        "id": "node-civil-avenue",
+        "name": "Civil Engineering North Promenade",
+        "type": "outdoor_junction",
+        "coordinates": [
+          76.10265,
+          13.0241
+        ],
+        "isAccessible": true
+      }
+    ],
+    [
+      "node-civil-entrance",
+      {
+        "id": "node-civil-entrance",
+        "name": "Civil Department Main Portico",
+        "type": "building_entrance",
+        "coordinates": [
+          76.1028,
+          13.0243
+        ],
+        "buildingId": "b-civil",
+        "floor": 0,
+        "isAccessible": true
+      }
+    ],
+    [
+      "node-mech-avenue",
+      {
+        "id": "node-mech-avenue",
+        "name": "Mechanical Workshop Crossroads",
+        "type": "outdoor_junction",
+        "coordinates": [
+          76.1031,
+          13.0246
+        ],
+        "isAccessible": true
+      }
+    ],
+    [
+      "node-mech-entrance",
+      {
+        "id": "node-mech-entrance",
+        "name": "Mechanical Workshop Main Entrance",
+        "type": "building_entrance",
+        "coordinates": [
+          76.10335,
+          13.02478
+        ],
+        "buildingId": "b-mech",
+        "floor": 0,
+        "isAccessible": true
+      }
+    ],
+    [
+      "node-academic-central-path",
+      {
+        "id": "node-academic-central-path",
+        "name": "Central Academic Boulevard",
+        "type": "outdoor_junction",
+        "coordinates": [
+          76.1032,
+          13.0237
+        ],
+        "isAccessible": true
+      }
+    ],
+    [
+      "node-canteen-plaza",
+      {
+        "id": "node-canteen-plaza",
+        "name": "Canteen & Social Plaza",
+        "type": "outdoor_junction",
+        "coordinates": [
+          76.10365,
+          13.0236
+        ],
+        "isAccessible": true
+      }
+    ],
+    [
+      "node-canteen-entrance",
+      {
+        "id": "node-canteen-entrance",
+        "name": "Campus Canteen Entrance",
+        "type": "building_entrance",
+        "coordinates": [
+          76.10372,
+          13.0236
+        ],
+        "buildingId": "b-canteen",
+        "floor": 0,
+        "isAccessible": true
+      }
+    ],
+    [
+      "node-csis-entrance",
+      {
+        "id": "node-csis-entrance",
+        "name": "CS-IS Complex Main Archway",
+        "type": "building_entrance",
+        "coordinates": [
+          76.10385,
+          13.02388
+        ],
+        "buildingId": "b-cse-ise",
+        "floor": 0,
+        "isAccessible": true
+      }
+    ],
+    [
+      "node-ece-entrance",
+      {
+        "id": "node-ece-entrance",
+        "name": "ECE Block Portico",
+        "type": "building_entrance",
+        "coordinates": [
+          76.10312,
+          13.02292
+        ],
+        "buildingId": "b-ece",
+        "floor": 0,
+        "isAccessible": true
+      }
+    ],
+    [
+      "node-eee-entrance",
+      {
+        "id": "node-eee-entrance",
+        "name": "EEE Block Entrance",
+        "type": "building_entrance",
+        "coordinates": [
+          76.1034,
+          13.0233
+        ],
+        "buildingId": "b-eee",
+        "floor": 0,
+        "isAccessible": true
+      }
+    ],
+    [
+      "node-meriise-entrance",
+      {
+        "id": "node-meriise-entrance",
+        "name": "ME-RIISE Foundation Incubator Entrance",
+        "type": "building_entrance",
+        "coordinates": [
+          76.1044,
+          13.0242
+        ],
+        "buildingId": "b-meriise",
+        "floor": 0,
+        "isAccessible": true
+      }
+    ],
+    [
+      "node-hostel-junction",
+      {
+        "id": "node-hostel-junction",
+        "name": "Boys Hostels Access Gate",
+        "type": "outdoor_junction",
+        "coordinates": [
+          76.1048,
+          13.0248
+        ],
+        "isAccessible": true
+      }
+    ],
+    [
+      "node-hostel-entrance",
+      {
+        "id": "node-hostel-entrance",
+        "name": "Hoysala/Hemavathi Hostel Portico",
+        "type": "building_entrance",
+        "coordinates": [
+          76.1051,
+          13.02505
+        ],
+        "buildingId": "b-hostels",
+        "floor": 0,
+        "isAccessible": true
+      }
+    ],
+    [
+      "node-temple-path",
+      {
+        "id": "node-temple-path",
+        "name": "Spiritual Enclave Meditation Garden Walk",
+        "type": "outdoor_junction",
+        "coordinates": [
+          76.1039,
+          13.0253
+        ],
+        "isAccessible": true
+      }
+    ],
+    [
+      "node-temple-entrance",
+      {
+        "id": "node-temple-entrance",
+        "name": "Shree Ganapathi Temple Steps",
+        "type": "building_entrance",
+        "coordinates": [
+          76.10408,
+          13.0259
+        ],
+        "buildingId": "b-temple",
+        "floor": 0,
+        "isAccessible": false
+      }
+    ],
+    [
+      "node-sports-ground",
+      {
+        "id": "node-sports-ground",
+        "name": "Main Sports Complex & Pavilion",
+        "type": "building_entrance",
+        "coordinates": [
+          76.10525,
+          13.02235
+        ],
+        "buildingId": "b-sports",
+        "floor": 0,
+        "isAccessible": true
+      }
+    ],
+    [
+      "node-emergency-assembly",
+      {
+        "id": "node-emergency-assembly",
+        "name": "Central Academic Lawn Emergency Assembly Area",
+        "type": "emergency_point",
+        "coordinates": [
+          76.103,
+          13.0239
+        ],
+        "isAccessible": true
+      }
+    ],
+    [
+      "node-csis-f0-foyer",
+      {
+        "id": "node-csis-f0-foyer",
+        "name": "CS-IS Ground Floor Main Foyer",
+        "type": "indoor_junction",
+        "coordinates": [
+          76.10385,
+          13.02388
+        ],
+        "buildingId": "b-cse-ise",
+        "floor": 0,
+        "isAccessible": true
+      }
+    ],
+    [
+      "node-csis-f0-stairs",
+      {
+        "id": "node-csis-f0-stairs",
+        "name": "CS-IS Ground Floor Staircase West",
+        "type": "indoor_staircase",
+        "coordinates": [
+          76.10382,
+          13.02386
+        ],
+        "buildingId": "b-cse-ise",
+        "floor": 0,
+        "isAccessible": false
+      }
+    ],
+    [
+      "node-csis-f0-elevator",
+      {
+        "id": "node-csis-f0-elevator",
+        "name": "CS-IS Ground Floor Accessible Elevator",
+        "type": "indoor_elevator",
+        "coordinates": [
+          76.10387,
+          13.02385
+        ],
+        "buildingId": "b-cse-ise",
+        "floor": 0,
+        "isAccessible": true
+      }
+    ],
+    [
+      "node-csis-f1-foyer",
+      {
+        "id": "node-csis-f1-foyer",
+        "name": "CS-IS First Floor Landing",
+        "type": "indoor_junction",
+        "coordinates": [
+          76.10385,
+          13.02388
+        ],
+        "buildingId": "b-cse-ise",
+        "floor": 1,
+        "isAccessible": true
+      }
+    ],
+    [
+      "node-csis-f1-stairs",
+      {
+        "id": "node-csis-f1-stairs",
+        "name": "CS-IS First Floor Staircase West",
+        "type": "indoor_staircase",
+        "coordinates": [
+          76.10382,
+          13.02386
+        ],
+        "buildingId": "b-cse-ise",
+        "floor": 1,
+        "isAccessible": false
+      }
+    ],
+    [
+      "node-csis-f1-elevator",
+      {
+        "id": "node-csis-f1-elevator",
+        "name": "CS-IS First Floor Elevator",
+        "type": "indoor_elevator",
+        "coordinates": [
+          76.10387,
+          13.02385
+        ],
+        "buildingId": "b-cse-ise",
+        "floor": 1,
+        "isAccessible": true
+      }
+    ],
+    [
+      "node-csis-f1-cse-hod",
+      {
+        "id": "node-csis-f1-cse-hod",
+        "name": "Doorway: CSE HOD Office (CS-101)",
+        "type": "room_entrance",
+        "coordinates": [
+          76.10385,
+          13.0239
+        ],
+        "buildingId": "b-cse-ise",
+        "floor": 1,
+        "isAccessible": true
+      }
+    ],
+    [
+      "node-csis-f2-foyer",
+      {
+        "id": "node-csis-f2-foyer",
+        "name": "CS-IS Second Floor Landing",
+        "type": "indoor_junction",
+        "coordinates": [
+          76.10385,
+          13.02388
+        ],
+        "buildingId": "b-cse-ise",
+        "floor": 2,
+        "isAccessible": true
+      }
+    ],
+    [
+      "node-csis-f2-stairs",
+      {
+        "id": "node-csis-f2-stairs",
+        "name": "CS-IS Second Floor Staircase West",
+        "type": "indoor_staircase",
+        "coordinates": [
+          76.10382,
+          13.02386
+        ],
+        "buildingId": "b-cse-ise",
+        "floor": 2,
+        "isAccessible": false
+      }
+    ],
+    [
+      "node-csis-f2-elevator",
+      {
+        "id": "node-csis-f2-elevator",
+        "name": "CS-IS Second Floor Elevator",
+        "type": "indoor_elevator",
+        "coordinates": [
+          76.10387,
+          13.02385
+        ],
+        "buildingId": "b-cse-ise",
+        "floor": 2,
+        "isAccessible": true
+      }
+    ],
+    [
+      "node-csis-f2-ai-lab",
+      {
+        "id": "node-csis-f2-ai-lab",
+        "name": "Doorway: AI & ML Lab (CS-204)",
+        "type": "room_entrance",
+        "coordinates": [
+          76.10395,
+          13.024
+        ],
+        "buildingId": "b-cse-ise",
+        "floor": 2,
+        "isAccessible": true
+      }
+    ],
+    [
+      "node-csis-f3-foyer",
+      {
+        "id": "node-csis-f3-foyer",
+        "name": "CS-IS Third Floor Landing",
+        "type": "indoor_junction",
+        "coordinates": [
+          76.10385,
+          13.02388
+        ],
+        "buildingId": "b-cse-ise",
+        "floor": 3,
+        "isAccessible": true
+      }
+    ],
+    [
+      "node-csis-f3-stairs",
+      {
+        "id": "node-csis-f3-stairs",
+        "name": "CS-IS Third Floor Staircase West",
+        "type": "indoor_staircase",
+        "coordinates": [
+          76.10382,
+          13.02386
+        ],
+        "buildingId": "b-cse-ise",
+        "floor": 3,
+        "isAccessible": false
+      }
+    ],
+    [
+      "node-csis-f3-cr-301",
+      {
+        "id": "node-csis-f3-cr-301",
+        "name": "Doorway: Lecture Hall CS-301",
+        "type": "room_entrance",
+        "coordinates": [
+          76.1039,
+          13.02395
+        ],
+        "buildingId": "b-cse-ise",
+        "floor": 3,
+        "isAccessible": true
+      }
+    ],
+    [
+      "node-admin-f0-foyer",
+      {
+        "id": "node-admin-f0-foyer",
+        "name": "Admin Block Ground Floor Rotunda",
+        "type": "indoor_junction",
+        "coordinates": [
+          76.10242,
+          13.02365
+        ],
+        "buildingId": "b-admin",
+        "floor": 0,
+        "isAccessible": true
+      }
+    ],
+    [
+      "node-admin-f0-principal",
+      {
+        "id": "node-admin-f0-principal",
+        "name": "Doorway: Principal's Office (ADM-001)",
+        "type": "room_entrance",
+        "coordinates": [
+          76.1024,
+          13.0236
+        ],
+        "buildingId": "b-admin",
+        "floor": 0,
+        "isAccessible": true
+      }
+    ],
+    [
+      "node-admin-f0-stairs",
+      {
+        "id": "node-admin-f0-stairs",
+        "name": "Admin Block Ground Floor Grand Staircase",
+        "type": "indoor_staircase",
+        "coordinates": [
+          76.10244,
+          13.02363
+        ],
+        "buildingId": "b-admin",
+        "floor": 0,
+        "isAccessible": false
+      }
+    ],
+    [
+      "node-admin-f0-elevator",
+      {
+        "id": "node-admin-f0-elevator",
+        "name": "Admin Block Ground Floor Elevator",
+        "type": "indoor_elevator",
+        "coordinates": [
+          76.10241,
+          13.02367
+        ],
+        "buildingId": "b-admin",
+        "floor": 0,
+        "isAccessible": true
+      }
+    ],
+    [
+      "node-admin-f1-foyer",
+      {
+        "id": "node-admin-f1-foyer",
+        "name": "Admin Block First Floor Landing",
+        "type": "indoor_junction",
+        "coordinates": [
+          76.10242,
+          13.02365
+        ],
+        "buildingId": "b-admin",
+        "floor": 1,
+        "isAccessible": true
+      }
+    ],
+    [
+      "node-admin-f1-stairs",
+      {
+        "id": "node-admin-f1-stairs",
+        "name": "Admin Block First Floor Staircase",
+        "type": "indoor_staircase",
+        "coordinates": [
+          76.10244,
+          13.02363
+        ],
+        "buildingId": "b-admin",
+        "floor": 1,
+        "isAccessible": false
+      }
+    ],
+    [
+      "node-admin-f1-elevator",
+      {
+        "id": "node-admin-f1-elevator",
+        "name": "Admin Block First Floor Elevator",
+        "type": "indoor_elevator",
+        "coordinates": [
+          76.10241,
+          13.02367
+        ],
+        "buildingId": "b-admin",
+        "floor": 1,
+        "isAccessible": true
+      }
+    ],
+    [
+      "node-admin-f1-exam-cell",
+      {
+        "id": "node-admin-f1-exam-cell",
+        "name": "Doorway: Examination Section (ADM-105)",
+        "type": "room_entrance",
+        "coordinates": [
+          76.10245,
+          13.02365
+        ],
+        "buildingId": "b-admin",
+        "floor": 1,
+        "isAccessible": true
+      }
+    ]
+  ],
+  "edges": [
+    [
+      "edge-gate-sec",
+      {
+        "id": "edge-gate-sec",
+        "fromNodeId": "node-gate-salagame",
+        "toNodeId": "node-security-junction",
+        "distanceMeters": 23,
+        "isIndoor": false,
+        "isAccessible": true,
+        "isStairs": false,
+        "isElevator": false,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-sec-admin-circle",
+      {
+        "id": "edge-sec-admin-circle",
+        "fromNodeId": "node-security-junction",
+        "toNodeId": "node-admin-circle",
+        "distanceMeters": 35,
+        "isIndoor": false,
+        "isAccessible": true,
+        "isStairs": false,
+        "isElevator": false,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-circle-admin-ent",
+      {
+        "id": "edge-circle-admin-ent",
+        "fromNodeId": "node-admin-circle",
+        "toNodeId": "node-admin-entrance",
+        "distanceMeters": 10,
+        "isIndoor": false,
+        "isAccessible": true,
+        "isStairs": false,
+        "isElevator": false,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-circle-lib-junc",
+      {
+        "id": "edge-circle-lib-junc",
+        "fromNodeId": "node-admin-circle",
+        "toNodeId": "node-library-junction",
+        "distanceMeters": 45,
+        "isIndoor": false,
+        "isAccessible": true,
+        "isStairs": false,
+        "isElevator": false,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-lib-junc-ent",
+      {
+        "id": "edge-lib-junc-ent",
+        "fromNodeId": "node-library-junction",
+        "toNodeId": "node-library-entrance",
+        "distanceMeters": 12,
+        "isIndoor": false,
+        "isAccessible": true,
+        "isStairs": false,
+        "isElevator": false,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-lib-placement",
+      {
+        "id": "edge-lib-placement",
+        "fromNodeId": "node-library-junction",
+        "toNodeId": "node-placement-entrance",
+        "distanceMeters": 90,
+        "isIndoor": false,
+        "isAccessible": true,
+        "isStairs": false,
+        "isElevator": false,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-lib-ece",
+      {
+        "id": "edge-lib-ece",
+        "fromNodeId": "node-library-junction",
+        "toNodeId": "node-ece-entrance",
+        "distanceMeters": 80,
+        "isIndoor": false,
+        "isAccessible": true,
+        "isStairs": false,
+        "isElevator": false,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-ece-eee",
+      {
+        "id": "edge-ece-eee",
+        "fromNodeId": "node-ece-entrance",
+        "toNodeId": "node-eee-entrance",
+        "distanceMeters": 52,
+        "isIndoor": false,
+        "isAccessible": true,
+        "isStairs": false,
+        "isElevator": false,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-circle-civil",
+      {
+        "id": "edge-circle-civil",
+        "fromNodeId": "node-admin-circle",
+        "toNodeId": "node-civil-avenue",
+        "distanceMeters": 60,
+        "isIndoor": false,
+        "isAccessible": true,
+        "isStairs": false,
+        "isElevator": false,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-civil-junc-ent",
+      {
+        "id": "edge-civil-junc-ent",
+        "fromNodeId": "node-civil-avenue",
+        "toNodeId": "node-civil-entrance",
+        "distanceMeters": 28,
+        "isIndoor": false,
+        "isAccessible": true,
+        "isStairs": false,
+        "isElevator": false,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-civil-mech",
+      {
+        "id": "edge-civil-mech",
+        "fromNodeId": "node-civil-avenue",
+        "toNodeId": "node-mech-avenue",
+        "distanceMeters": 75,
+        "isIndoor": false,
+        "isAccessible": true,
+        "isStairs": false,
+        "isElevator": false,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-mech-junc-ent",
+      {
+        "id": "edge-mech-junc-ent",
+        "fromNodeId": "node-mech-avenue",
+        "toNodeId": "node-mech-entrance",
+        "distanceMeters": 34,
+        "isIndoor": false,
+        "isAccessible": true,
+        "isStairs": false,
+        "isElevator": false,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-civil-central",
+      {
+        "id": "edge-civil-central",
+        "fromNodeId": "node-civil-avenue",
+        "toNodeId": "node-academic-central-path",
+        "distanceMeters": 72,
+        "isIndoor": false,
+        "isAccessible": true,
+        "isStairs": false,
+        "isElevator": false,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-circle-central",
+      {
+        "id": "edge-circle-central",
+        "fromNodeId": "node-admin-circle",
+        "toNodeId": "node-academic-central-path",
+        "distanceMeters": 92,
+        "isIndoor": false,
+        "isAccessible": true,
+        "isStairs": false,
+        "isElevator": false,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-central-emergency",
+      {
+        "id": "edge-central-emergency",
+        "fromNodeId": "node-academic-central-path",
+        "toNodeId": "node-emergency-assembly",
+        "distanceMeters": 30,
+        "isIndoor": false,
+        "isAccessible": true,
+        "isStairs": false,
+        "isElevator": false,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-central-canteen",
+      {
+        "id": "edge-central-canteen",
+        "fromNodeId": "node-academic-central-path",
+        "toNodeId": "node-canteen-plaza",
+        "distanceMeters": 50,
+        "isIndoor": false,
+        "isAccessible": true,
+        "isStairs": false,
+        "isElevator": false,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-canteen-plaza-ent",
+      {
+        "id": "edge-canteen-plaza-ent",
+        "fromNodeId": "node-canteen-plaza",
+        "toNodeId": "node-canteen-entrance",
+        "distanceMeters": 8,
+        "isIndoor": false,
+        "isAccessible": true,
+        "isStairs": false,
+        "isElevator": false,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-canteen-csis",
+      {
+        "id": "edge-canteen-csis",
+        "fromNodeId": "node-canteen-plaza",
+        "toNodeId": "node-csis-entrance",
+        "distanceMeters": 40,
+        "isIndoor": false,
+        "isAccessible": true,
+        "isStairs": false,
+        "isElevator": false,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-canteen-eee",
+      {
+        "id": "edge-canteen-eee",
+        "fromNodeId": "node-canteen-plaza",
+        "toNodeId": "node-eee-entrance",
+        "distanceMeters": 45,
+        "isIndoor": false,
+        "isAccessible": true,
+        "isStairs": false,
+        "isElevator": false,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-csis-meriise",
+      {
+        "id": "edge-csis-meriise",
+        "fromNodeId": "node-csis-entrance",
+        "toNodeId": "node-meriise-entrance",
+        "distanceMeters": 65,
+        "isIndoor": false,
+        "isAccessible": true,
+        "isStairs": false,
+        "isElevator": false,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-meriise-hostels",
+      {
+        "id": "edge-meriise-hostels",
+        "fromNodeId": "node-meriise-entrance",
+        "toNodeId": "node-hostel-junction",
+        "distanceMeters": 75,
+        "isIndoor": false,
+        "isAccessible": true,
+        "isStairs": false,
+        "isElevator": false,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-hostels-junc-ent",
+      {
+        "id": "edge-hostels-junc-ent",
+        "fromNodeId": "node-hostel-junction",
+        "toNodeId": "node-hostel-entrance",
+        "distanceMeters": 42,
+        "isIndoor": false,
+        "isAccessible": true,
+        "isStairs": false,
+        "isElevator": false,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-mech-temple-path",
+      {
+        "id": "edge-mech-temple-path",
+        "fromNodeId": "node-mech-avenue",
+        "toNodeId": "node-temple-path",
+        "distanceMeters": 110,
+        "isIndoor": false,
+        "isAccessible": true,
+        "isStairs": false,
+        "isElevator": false,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-temple-path-ent",
+      {
+        "id": "edge-temple-path-ent",
+        "fromNodeId": "node-temple-path",
+        "toNodeId": "node-temple-entrance",
+        "distanceMeters": 70,
+        "isIndoor": false,
+        "isAccessible": false,
+        "isStairs": true,
+        "isElevator": false,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-eee-sports",
+      {
+        "id": "edge-eee-sports",
+        "fromNodeId": "node-eee-entrance",
+        "toNodeId": "node-sports-ground",
+        "distanceMeters": 230,
+        "isIndoor": false,
+        "isAccessible": true,
+        "isStairs": false,
+        "isElevator": false,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-csis-ent-f0",
+      {
+        "id": "edge-csis-ent-f0",
+        "fromNodeId": "node-csis-entrance",
+        "toNodeId": "node-csis-f0-foyer",
+        "distanceMeters": 5,
+        "isIndoor": true,
+        "isAccessible": true,
+        "isStairs": false,
+        "isElevator": false,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-csis-f0-stairs",
+      {
+        "id": "edge-csis-f0-stairs",
+        "fromNodeId": "node-csis-f0-foyer",
+        "toNodeId": "node-csis-f0-stairs",
+        "distanceMeters": 8,
+        "isIndoor": true,
+        "isAccessible": true,
+        "isStairs": false,
+        "isElevator": false,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-csis-f0-elevator",
+      {
+        "id": "edge-csis-f0-elevator",
+        "fromNodeId": "node-csis-f0-foyer",
+        "toNodeId": "node-csis-f0-elevator",
+        "distanceMeters": 6,
+        "isIndoor": true,
+        "isAccessible": true,
+        "isStairs": false,
+        "isElevator": false,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-csis-stairs-0-1",
+      {
+        "id": "edge-csis-stairs-0-1",
+        "fromNodeId": "node-csis-f0-stairs",
+        "toNodeId": "node-csis-f1-stairs",
+        "distanceMeters": 14,
+        "isIndoor": true,
+        "isAccessible": false,
+        "isStairs": true,
+        "isElevator": false,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-csis-elev-0-1",
+      {
+        "id": "edge-csis-elev-0-1",
+        "fromNodeId": "node-csis-f0-elevator",
+        "toNodeId": "node-csis-f1-elevator",
+        "distanceMeters": 5,
+        "isIndoor": true,
+        "isAccessible": true,
+        "isStairs": false,
+        "isElevator": true,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-csis-f1-elev-foyer",
+      {
+        "id": "edge-csis-f1-elev-foyer",
+        "fromNodeId": "node-csis-f1-elevator",
+        "toNodeId": "node-csis-f1-foyer",
+        "distanceMeters": 6,
+        "isIndoor": true,
+        "isAccessible": true,
+        "isStairs": false,
+        "isElevator": false,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-csis-f1-stairs-foyer",
+      {
+        "id": "edge-csis-f1-stairs-foyer",
+        "fromNodeId": "node-csis-f1-stairs",
+        "toNodeId": "node-csis-f1-foyer",
+        "distanceMeters": 8,
+        "isIndoor": true,
+        "isAccessible": true,
+        "isStairs": false,
+        "isElevator": false,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-csis-f1-hod",
+      {
+        "id": "edge-csis-f1-hod",
+        "fromNodeId": "node-csis-f1-foyer",
+        "toNodeId": "node-csis-f1-cse-hod",
+        "distanceMeters": 12,
+        "isIndoor": true,
+        "isAccessible": true,
+        "isStairs": false,
+        "isElevator": false,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-csis-stairs-1-2",
+      {
+        "id": "edge-csis-stairs-1-2",
+        "fromNodeId": "node-csis-f1-stairs",
+        "toNodeId": "node-csis-f2-stairs",
+        "distanceMeters": 14,
+        "isIndoor": true,
+        "isAccessible": false,
+        "isStairs": true,
+        "isElevator": false,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-csis-elev-1-2",
+      {
+        "id": "edge-csis-elev-1-2",
+        "fromNodeId": "node-csis-f1-elevator",
+        "toNodeId": "node-csis-f2-elevator",
+        "distanceMeters": 5,
+        "isIndoor": true,
+        "isAccessible": true,
+        "isStairs": false,
+        "isElevator": true,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-csis-f2-elev-foyer",
+      {
+        "id": "edge-csis-f2-elev-foyer",
+        "fromNodeId": "node-csis-f2-elevator",
+        "toNodeId": "node-csis-f2-foyer",
+        "distanceMeters": 6,
+        "isIndoor": true,
+        "isAccessible": true,
+        "isStairs": false,
+        "isElevator": false,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-csis-f2-stairs-foyer",
+      {
+        "id": "edge-csis-f2-stairs-foyer",
+        "fromNodeId": "node-csis-f2-stairs",
+        "toNodeId": "node-csis-f2-foyer",
+        "distanceMeters": 8,
+        "isIndoor": true,
+        "isAccessible": true,
+        "isStairs": false,
+        "isElevator": false,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-csis-f2-ai-lab",
+      {
+        "id": "edge-csis-f2-ai-lab",
+        "fromNodeId": "node-csis-f2-foyer",
+        "toNodeId": "node-csis-f2-ai-lab",
+        "distanceMeters": 16,
+        "isIndoor": true,
+        "isAccessible": true,
+        "isStairs": false,
+        "isElevator": false,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-csis-stairs-2-3",
+      {
+        "id": "edge-csis-stairs-2-3",
+        "fromNodeId": "node-csis-f2-stairs",
+        "toNodeId": "node-csis-f3-stairs",
+        "distanceMeters": 14,
+        "isIndoor": true,
+        "isAccessible": false,
+        "isStairs": true,
+        "isElevator": false,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-csis-f3-stairs-foyer",
+      {
+        "id": "edge-csis-f3-stairs-foyer",
+        "fromNodeId": "node-csis-f3-stairs",
+        "toNodeId": "node-csis-f3-foyer",
+        "distanceMeters": 8,
+        "isIndoor": true,
+        "isAccessible": true,
+        "isStairs": false,
+        "isElevator": false,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-csis-f3-cr-301",
+      {
+        "id": "edge-csis-f3-cr-301",
+        "fromNodeId": "node-csis-f3-foyer",
+        "toNodeId": "node-csis-f3-cr-301",
+        "distanceMeters": 15,
+        "isIndoor": true,
+        "isAccessible": true,
+        "isStairs": false,
+        "isElevator": false,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-admin-ent-f0",
+      {
+        "id": "edge-admin-ent-f0",
+        "fromNodeId": "node-admin-entrance",
+        "toNodeId": "node-admin-f0-foyer",
+        "distanceMeters": 6,
+        "isIndoor": true,
+        "isAccessible": true,
+        "isStairs": false,
+        "isElevator": false,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-admin-f0-principal",
+      {
+        "id": "edge-admin-f0-principal",
+        "fromNodeId": "node-admin-f0-foyer",
+        "toNodeId": "node-admin-f0-principal",
+        "distanceMeters": 10,
+        "isIndoor": true,
+        "isAccessible": true,
+        "isStairs": false,
+        "isElevator": false,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-admin-f0-stairs",
+      {
+        "id": "edge-admin-f0-stairs",
+        "fromNodeId": "node-admin-f0-foyer",
+        "toNodeId": "node-admin-f0-stairs",
+        "distanceMeters": 6,
+        "isIndoor": true,
+        "isAccessible": true,
+        "isStairs": false,
+        "isElevator": false,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-admin-f0-elev",
+      {
+        "id": "edge-admin-f0-elev",
+        "fromNodeId": "node-admin-f0-foyer",
+        "toNodeId": "node-admin-f0-elevator",
+        "distanceMeters": 5,
+        "isIndoor": true,
+        "isAccessible": true,
+        "isStairs": false,
+        "isElevator": false,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-admin-stairs-0-1",
+      {
+        "id": "edge-admin-stairs-0-1",
+        "fromNodeId": "node-admin-f0-stairs",
+        "toNodeId": "node-admin-f1-stairs",
+        "distanceMeters": 12,
+        "isIndoor": true,
+        "isAccessible": false,
+        "isStairs": true,
+        "isElevator": false,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-admin-elev-0-1",
+      {
+        "id": "edge-admin-elev-0-1",
+        "fromNodeId": "node-admin-f0-elevator",
+        "toNodeId": "node-admin-f1-elevator",
+        "distanceMeters": 5,
+        "isIndoor": true,
+        "isAccessible": true,
+        "isStairs": false,
+        "isElevator": true,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-admin-f1-elev-foyer",
+      {
+        "id": "edge-admin-f1-elev-foyer",
+        "fromNodeId": "node-admin-f1-elevator",
+        "toNodeId": "node-admin-f1-foyer",
+        "distanceMeters": 5,
+        "isIndoor": true,
+        "isAccessible": true,
+        "isStairs": false,
+        "isElevator": false,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-admin-f1-stairs-foyer",
+      {
+        "id": "edge-admin-f1-stairs-foyer",
+        "fromNodeId": "node-admin-f1-stairs",
+        "toNodeId": "node-admin-f1-foyer",
+        "distanceMeters": 6,
+        "isIndoor": true,
+        "isAccessible": true,
+        "isStairs": false,
+        "isElevator": false,
+        "isBlocked": false
+      }
+    ],
+    [
+      "edge-admin-f1-exam-cell",
+      {
+        "id": "edge-admin-f1-exam-cell",
+        "fromNodeId": "node-admin-f1-foyer",
+        "toNodeId": "node-admin-f1-exam-cell",
+        "distanceMeters": 14,
+        "isIndoor": true,
+        "isAccessible": true,
+        "isStairs": false,
+        "isElevator": false,
+        "isBlocked": false
+      }
+    ]
+  ],
+  "qrCheckpoints": [
+    [
+      "qr-gate-main",
+      {
+        "id": "qr-gate-main",
+        "code": "MCE-CHK-GATE-01",
+        "buildingId": "b-security",
+        "floor": 0,
+        "locationName": "Salagame Road Main Gate Security Post",
+        "description": "Mount on the east pillar of the Main Gate pedestrian entrance",
+        "nodeId": "node-gate-salagame",
+        "coordinates": [
+          76.10185,
+          13.0238
+        ]
+      }
+    ],
+    [
+      "qr-admin-gf",
+      {
+        "id": "qr-admin-gf",
+        "code": "MCE-CHK-ADM-GF",
+        "buildingId": "b-admin",
+        "floor": 0,
+        "locationName": "Admin Block Ground Floor Rotunda",
+        "description": "Located next to the Principal Office directory board",
+        "nodeId": "node-admin-f0-foyer",
+        "coordinates": [
+          76.10242,
+          13.02365
+        ]
+      }
+    ],
+    [
+      "qr-admin-1f",
+      {
+        "id": "qr-admin-1f",
+        "code": "MCE-CHK-ADM-1F",
+        "buildingId": "b-admin",
+        "floor": 1,
+        "locationName": "Admin Block First Floor - Examination Section",
+        "description": "Mounted outside the Controller of Examinations door (ADM-105)",
+        "nodeId": "node-admin-f1-foyer",
+        "coordinates": [
+          76.10242,
+          13.02365
+        ]
+      }
+    ],
+    [
+      "qr-csis-gf",
+      {
+        "id": "qr-csis-gf",
+        "code": "MCE-CHK-CSIS-GF",
+        "buildingId": "b-cse-ise",
+        "floor": 0,
+        "locationName": "CS-IS Complex Ground Floor Archway",
+        "description": "Mounted at the main entry atrium beside the elevator",
+        "nodeId": "node-csis-f0-foyer",
+        "coordinates": [
+          76.10385,
+          13.02388
+        ]
+      }
+    ],
+    [
+      "qr-csis-1f",
+      {
+        "id": "qr-csis-1f",
+        "code": "MCE-CHK-CSIS-1F",
+        "buildingId": "b-cse-ise",
+        "floor": 1,
+        "locationName": "CS-IS Complex First Floor - CSE Department",
+        "description": "Mounted at the HOD CSE corridor notice board",
+        "nodeId": "node-csis-f1-foyer",
+        "coordinates": [
+          76.10385,
+          13.02388
+        ]
+      }
+    ],
+    [
+      "qr-csis-2f",
+      {
+        "id": "qr-csis-2f",
+        "code": "MCE-CHK-CSIS-2F",
+        "buildingId": "b-cse-ise",
+        "floor": 2,
+        "locationName": "CS-IS Complex Second Floor - AI & ML Laboratory",
+        "description": "Mounted outside the AI & ML Innovation Laboratory (CS-204)",
+        "nodeId": "node-csis-f2-foyer",
+        "coordinates": [
+          76.10385,
+          13.02388
+        ]
+      }
+    ],
+    [
+      "qr-csis-3f",
+      {
+        "id": "qr-csis-3f",
+        "code": "MCE-CHK-CSIS-3F",
+        "buildingId": "b-cse-ise",
+        "floor": 3,
+        "locationName": "CS-IS Complex Third Floor - Lecture Wing",
+        "description": "Mounted opposite Lecture Hall CS-301",
+        "nodeId": "node-csis-f3-foyer",
+        "coordinates": [
+          76.10385,
+          13.02388
+        ]
+      }
+    ],
+    [
+      "qr-lib-gf",
+      {
+        "id": "qr-lib-gf",
+        "code": "MCE-CHK-LIB-GF",
+        "buildingId": "b-library",
+        "floor": 0,
+        "locationName": "Central Library Circulation Portico",
+        "description": "Mounted at the book return RFID turnstile",
+        "nodeId": "node-library-entrance",
+        "coordinates": [
+          76.10255,
+          13.02325
+        ]
+      }
+    ],
+    [
+      "qr-civil-gf",
+      {
+        "id": "qr-civil-gf",
+        "code": "MCE-CHK-CIV-GF",
+        "buildingId": "b-civil",
+        "floor": 0,
+        "locationName": "Civil Engineering Testing Labs Corridor",
+        "description": "Mounted beside the Concrete & Highway Materials Testing Lab door",
+        "nodeId": "node-civil-entrance",
+        "coordinates": [
+          76.1028,
+          13.0243
+        ]
+      }
+    ],
+    [
+      "qr-mech-gf",
+      {
+        "id": "qr-mech-gf",
+        "code": "MCE-CHK-MECH-GF",
+        "buildingId": "b-mech",
+        "floor": 0,
+        "locationName": "Mechanical Workshops Central Bay",
+        "description": "Mounted on pillar A1 near the Machine Shop safety desk",
+        "nodeId": "node-mech-entrance",
+        "coordinates": [
+          76.10335,
+          13.02478
+        ]
+      }
+    ],
+    [
+      "qr-canteen",
+      {
+        "id": "qr-canteen",
+        "code": "MCE-CHK-CANTEEN",
+        "buildingId": "b-canteen",
+        "floor": 0,
+        "locationName": "Campus Canteen Central Dining Area",
+        "description": "Mounted above the digital token display board",
+        "nodeId": "node-canteen-entrance",
+        "coordinates": [
+          76.10372,
+          13.0236
+        ]
+      }
+    ],
+    [
+      "qr-health",
+      {
+        "id": "qr-health",
+        "code": "MCE-CHK-HEALTH",
+        "buildingId": "b-health",
+        "floor": 0,
+        "locationName": "Campus Health Centre & First Aid Desk",
+        "description": "Mounted at the entrance triage desk",
+        "nodeId": "room-health-clinic",
+        "coordinates": [
+          76.1022,
+          13.02335
+        ]
+      }
+    ]
+  ],
+  "feedbacks": [],
+  "auditLogs": [],
+  "mapVersions": [
+    {
+      "version": 1,
+      "publishedAt": "2026-11-22T06:49:23.034Z",
+      "publishedBy": "System Bootstrap",
+      "notes": "Initial surveyed MCE Hassan campus baseline topology",
+      "nodesCount": 46,
+      "edgesCount": 50
+    }
+  ]
+}

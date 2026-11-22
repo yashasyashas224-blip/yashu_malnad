@@ -1,0 +1,20 @@
+{
+  "name": "mce-smart-campus-navigator",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Intelligent Campus Navigation Platform for Malnad College of Engineering, Hassan",
+  "scripts": {
+    "start": "npm run start --prefix backend",
+    "dev:backend": "npm run dev --prefix backend",
+    "dev:client": "npm run dev --prefix client",
+    "dev:admin": "npm run dev --prefix admin",
+    "build": "npm run build --prefix backend && npm run build --prefix client && npm run build --prefix admin",
+    "test": "npm run test:all --prefix backend",
+    "test:way1": "npm run test:way1 --prefix backend",
+    "test:way2": "npm run test:way2 --prefix backend",
+    "test:way3": "npm run test:way3 --prefix backend"
+  },
+  "browserslist": [
+    "defaults"
+  ]
+}
