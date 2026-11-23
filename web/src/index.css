@@ -1,0 +1,246 @@
+@import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --color-navy-950: #071426;
+  --color-navy-900: #0b1f3a;
+  --color-navy-800: #12294a;
+  --color-navy-700: #1b3a63;
+  --color-gold-300: #ffe08a;
+  --color-gold-400: #f5c542;
+  --color-gold-500: #f2b705;
+  --color-gold-600: #d99f00;
+}
+
+:root {
+  color-scheme: light;
+  --surface-border: #dbe3ee;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background: #eef2f7;
+  color: #0f172a;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-gold-500);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: var(--color-gold-300);
+  color: var(--color-navy-950);
+}
+
+/* Floating campus pins: Leaflet div icons, so every landmark is a real, focusable marker. */
+.campus-pin {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: 2.5px solid #ffffff;
+  border-radius: 9999px;
+  box-shadow: 0 2px 8px rgba(7, 20, 38, 0.35);
+  font-size: 17px;
+  line-height: 1;
+  cursor: pointer;
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+.campus-pin:hover {
+  transform: scale(1.1);
+  z-index: 1000 !important;
+}
+
+/* Pins filtered out by search stay on the map, only dimmed. */
+.campus-pin.is-muted {
+  opacity: 0.32;
+  filter: grayscale(0.7);
+}
+
+.campus-pin.is-selected {
+  transform: scale(1.18);
+  box-shadow:
+    0 0 0 4px rgba(242, 183, 5, 0.6),
+    0 4px 14px rgba(7, 20, 38, 0.4);
+}
+
+.campus-pin--entrance {
+  background: #0b1f3a;
+}
+.campus-pin--academic {
+  background: #1d4ed8;
+}
+.campus-pin--library {
+  background: #6d28d9;
+}
+.campus-pin--food {
+  background: #c2410c;
+}
+.campus-pin--hostel {
+  background: #047857;
+}
+.campus-pin--sports {
+  background: #15803d;
+}
+.campus-pin--landmark {
+  background: #a16207;
+}
+
+.category-scroll {
+  scrollbar-width: none;
+}
+
+.category-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.nice-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #c3cedd transparent;
+}
+
+.nice-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.nice-scroll::-webkit-scrollbar-thumb {
+  background: #c3cedd;
+  border-radius: 9999px;
+}
+
+dialog.modal {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  max-width: none;
+  max-height: none;
+}
+
+dialog.modal::backdrop {
+  background: rgba(7, 20, 38, 0.58);
+  backdrop-filter: blur(2px);
+}
+
+dialog.modal--center {
+  inset: 0;
+  margin: auto;
+  max-height: calc(100dvh - 2rem);
+}
+
+dialog.modal--drawer {
+  margin: 0 0 0 auto;
+  height: 100dvh;
+  width: min(100%, 450px);
+}
+
+dialog.modal--sheet {
+  margin: auto auto 0;
+  width: 100%;
+  max-width: 560px;
+}
+
+/* High-contrast preference toggled from the header, in the spirit of the old site. */
+[data-contrast="high"] body {
+  background: #ffffff;
+  color: #000000;
+}
+
+[data-contrast="high"] .surface {
+  border-color: #000000 !important;
+  box-shadow: none !important;
+}
+
+[data-contrast="high"] .text-muted {
+  color: #1f2937 !important;
+}
+
+[data-contrast="high"] .campus-pin {
+  border-color: #000000;
+  box-shadow: 0 0 0 2px #ffffff;
+}
+
+[data-contrast="high"] .pin-label {
+  background: #000000 !important;
+  color: #ffffff !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.map-canvas {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 0;
+  isolation: isolate;
+}
+
+.leaflet-container {
+  background: #e8eef6;
+  font-family: var(--font-sans);
+  font-size: 12px;
+}
+
+.leaflet-container:focus-visible {
+  outline-offset: -4px;
+}
+
+/* Always-visible landmark labels next to the pins. */
+.leaflet-tooltip.pin-label {
+  padding: 2px 6px;
+  border: 0;
+  border-radius: 6px;
+  background: rgba(11, 31, 58, 0.92);
+  color: #ffffff;
+  font-size: 10.5px;
+  font-weight: 700;
+  line-height: 1.35;
+  white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(7, 20, 38, 0.28);
+}
+
+.leaflet-tooltip.pin-label::before {
+  border-top-color: rgba(11, 31, 58, 0.92);
+}
+
+.leaflet-marker-icon.campus-pin:focus-visible {
+  outline: 3px solid var(--color-gold-500);
+  outline-offset: 2px;
+}
+
+.map-canvas:focus-visible {
+  outline-offset: -4px;
+}
