@@ -138,7 +138,7 @@ export function MapPanel({
           html: pinHtml(location.category),
           iconSize: [36, 46],
           iconAnchor: [18, 46],
-          tooltipAnchor: [0, -44],
+          tooltipAnchor: [0, -50],
         }),
         title: `${location.name} — ${meta.label}`,
         alt: `${location.name}, ${meta.label}`,
@@ -150,7 +150,7 @@ export function MapPanel({
       marker.bindTooltip(location.shortName, {
         permanent: true,
         direction: 'top',
-        offset: [0, -44],
+        offset: [0, 0],
         className: 'pin-label',
         opacity: 1,
         interactive: false,
