@@ -14,7 +14,30 @@ import {
   CATEGORY_BY_ID,
   LOCATION_BY_ID,
   type CampusLocation,
+  type CategoryId,
 } from '../data/locations';
+
+/** White glyphs drawn inside each teardrop pin (24×24 icon space). */
+const PIN_GLYPHS: Record<CategoryId, string> = {
+  entrance:
+    'M13 4h3a2 2 0 0 1 2 2v14M2 20h3M13 20h9M10 12v.01M13 4.56v16.16a1 1 0 0 1-1.24.97L5 20V5.56a2 2 0 0 1 1.52-1.94l4-1A2 2 0 0 1 13 4.56Z',
+  academic:
+    'M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18ZM6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2M10 6h4M10 10h4M10 14h4M10 18h4',
+  library: 'M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20',
+  food: 'M10 2v2M14 2v2M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1',
+  hostel: 'm3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zM9 22V12h6v10',
+  sports:
+    'M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22M18 2H6v7a6 6 0 0 0 12 0V2Z',
+  landmark: 'M3 22h18M6 18v-7M10 18v-7M14 18v-7M18 18v-7M12 2 20 7H4z',
+};
+
+/** Teardrop marker: coloured body, white glyph, tip on the exact coordinate. */
+const pinHtml = (category: CategoryId): string =>
+  `<svg viewBox="0 0 36 46" width="36" height="46" aria-hidden="true" focusable="false">` +
+  `<path class="campus-pin__body" d="M18 1.6C9.2 1.6 2.2 8.5 2.2 17c0 6.4 3.5 12.4 8.7 19.1 2 2.6 4.4 5.4 7.1 8.6 2.7-3.2 5.1-6 7.1-8.6C30.3 29.4 33.8 23.4 33.8 17 33.8 8.5 26.8 1.6 18 1.6Z"/>` +
+  `<g transform="translate(10 9) scale(0.667)" fill="none" stroke="#ffffff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">` +
+  `<path d="${PIN_GLYPHS[category]}"/>` +
+  `</g></svg>`;
 
 type GeoState =
   | { kind: 'idle' }
@@ -112,10 +135,10 @@ export function MapPanel({
       const marker = L.marker([location.coordinates.lat, location.coordinates.lng], {
         icon: L.divIcon({
           className: `campus-pin campus-pin--${location.category}`,
-          html: `<span aria-hidden="true">${meta.emoji}</span>`,
-          iconSize: [38, 38],
-          iconAnchor: [19, 19],
-          tooltipAnchor: [0, -22],
+          html: pinHtml(location.category),
+          iconSize: [36, 46],
+          iconAnchor: [18, 46],
+          tooltipAnchor: [0, -44],
         }),
         title: `${location.name} — ${meta.label}`,
         alt: `${location.name}, ${meta.label}`,
@@ -127,7 +150,7 @@ export function MapPanel({
       marker.bindTooltip(location.shortName, {
         permanent: true,
         direction: 'top',
-        offset: [0, -20],
+        offset: [0, -44],
         className: 'pin-label',
         opacity: 1,
         interactive: false,

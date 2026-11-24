@@ -54,24 +54,33 @@ textarea {
   color: var(--color-navy-950);
 }
 
-/* Floating campus pins: Leaflet div icons, so every landmark is a real, focusable marker. */
+/* Floating campus pins: teardrop map markers drawn as Leaflet div icons, so every
+   landmark stays a real, focusable marker with its tip on the coordinate. */
 .campus-pin {
-  display: grid;
-  place-items: center;
-  width: 38px;
-  height: 38px;
+  width: 36px;
+  height: 46px;
   padding: 0;
-  border: 2.5px solid #ffffff;
-  border-radius: 9999px;
-  box-shadow: 0 2px 8px rgba(7, 20, 38, 0.35);
-  font-size: 17px;
-  line-height: 1;
+  border: 0;
+  background: transparent;
   cursor: pointer;
-  transition: transform 150ms ease, box-shadow 150ms ease;
+  transform-origin: 50% 100%;
+  transition: transform 150ms ease, filter 150ms ease;
+}
+
+.campus-pin svg {
+  display: block;
+  overflow: visible;
+  filter: drop-shadow(0 2px 3px rgba(7, 20, 38, 0.45));
+}
+
+.campus-pin__body {
+  fill: currentColor;
+  stroke: #ffffff;
+  stroke-width: 2.2;
 }
 
 .campus-pin:hover {
-  transform: scale(1.1);
+  transform: scale(1.08);
   z-index: 1000 !important;
 }
 
@@ -82,32 +91,34 @@ textarea {
 }
 
 .campus-pin.is-selected {
-  transform: scale(1.18);
-  box-shadow:
-    0 0 0 4px rgba(242, 183, 5, 0.6),
-    0 4px 14px rgba(7, 20, 38, 0.4);
+  transform: scale(1.15);
+}
+
+.campus-pin.is-selected svg {
+  filter: drop-shadow(0 0 4px rgba(242, 183, 5, 0.95))
+    drop-shadow(0 2px 4px rgba(7, 20, 38, 0.45));
 }
 
 .campus-pin--entrance {
-  background: #0b1f3a;
+  color: #0b1f3a;
 }
 .campus-pin--academic {
-  background: #1d4ed8;
+  color: #1d4ed8;
 }
 .campus-pin--library {
-  background: #6d28d9;
+  color: #6d28d9;
 }
 .campus-pin--food {
-  background: #c2410c;
+  color: #c2410c;
 }
 .campus-pin--hostel {
-  background: #047857;
+  color: #047857;
 }
 .campus-pin--sports {
-  background: #15803d;
+  color: #15803d;
 }
 .campus-pin--landmark {
-  background: #a16207;
+  color: #a16207;
 }
 
 .category-scroll {
@@ -179,9 +190,9 @@ dialog.modal--sheet {
   color: #1f2937 !important;
 }
 
-[data-contrast="high"] .campus-pin {
-  border-color: #000000;
-  box-shadow: 0 0 0 2px #ffffff;
+[data-contrast="high"] .campus-pin__body {
+  stroke: #000000;
+  stroke-width: 2.6;
 }
 
 [data-contrast="high"] .pin-label {
