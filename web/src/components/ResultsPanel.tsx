@@ -6,6 +6,7 @@ import {
   type CampusLocation,
 } from '../data/locations';
 import { groupByCategory, QUICK_SEARCHES } from '../lib/search';
+import { useI18n, type TranslationKey } from '../lib/i18n';
 
 interface ResultsPanelProps {
   locations: CampusLocation[];
@@ -26,6 +27,7 @@ function LocationRow({
   onSelect: (location: CampusLocation) => void;
 }) {
   const meta = CATEGORY_BY_ID[location.category];
+  const { t } = useI18n();
   return (
     <button
       type="button"
@@ -49,7 +51,7 @@ function LocationRow({
           <span className="truncate text-sm font-bold text-navy-900">{location.name}</span>
         </span>
         <span className="mt-0.5 block text-[11px] font-semibold uppercase tracking-wide text-slate-400">
-          {meta.label}
+          {t(`cat.${location.category}` as TranslationKey)}
         </span>
         <span className="mt-1 block line-clamp-2 text-xs leading-relaxed text-slate-500">
           {location.description}
@@ -71,6 +73,7 @@ export function ResultsPanel({
   onQuickSearch,
   totalCount,
 }: ResultsPanelProps) {
+  const { t } = useI18n();
   const trimmed = query.trim();
   const groups = groupByCategory(locations);
 
@@ -78,10 +81,10 @@ export function ResultsPanel({
     <div className="flex h-full min-h-0 flex-col">
       <div className="flex shrink-0 items-baseline justify-between gap-3 px-4 pb-2 pt-4">
         <h2 className="text-sm font-extrabold uppercase tracking-wider text-navy-900">
-          {trimmed ? 'Search results' : 'Explore campus'}
+          {trimmed ? t('results.searchTitle') : t('results.exploreTitle')}
         </h2>
         <span className="text-[11px] font-semibold text-slate-400">
-          {locations.length} of {totalCount}
+          {t('results.count', { shown: locations.length, total: totalCount })}
         </span>
       </div>
 
@@ -90,11 +93,10 @@ export function ResultsPanel({
           <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-4 text-center">
             <SearchX aria-hidden="true" className="mx-auto h-6 w-6 text-slate-400" />
             <p className="mt-2 text-sm font-bold text-navy-900">
-              No verified place matches {trimmed ? `“${trimmed}”` : 'this filter'}.
+              {t('results.emptyTitle', { query: trimmed ? `“${trimmed}”` : '' })}
             </p>
             <p className="mt-1 text-xs leading-relaxed text-slate-500">
-              I only list places whose name and position are verified. Unmapped
-              facilities are not guessed.
+              {t('results.emptyBody')}
             </p>
             <div className="mt-3 flex flex-wrap justify-center gap-1.5">
               {QUICK_SEARCHES.slice(0, 4).map((suggestion) => (
@@ -159,11 +161,7 @@ export function ResultsPanel({
       <div className="shrink-0 border-t border-slate-200 bg-slate-50 px-4 py-3">
         <p className="flex items-start gap-1.5 text-[11px] leading-relaxed text-slate-500">
           <MapPin aria-hidden="true" className="mt-0.5 h-3.5 w-3.5 shrink-0" />
-          <span>
-            {totalCount} verified places. Positions checked against Google Maps /
-            OpenStreetMap on {PLACES_CHECKED_ON}. Unverified facilities are left
-            off the map.
-          </span>
+          <span>{t('results.footerChecked', { date: PLACES_CHECKED_ON })}</span>
         </p>
         <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 pl-5 text-[11px] font-semibold">
           <a
@@ -172,7 +170,7 @@ export function ResultsPanel({
             rel="noopener noreferrer"
             className="text-blue-700 hover:underline"
           >
-            Official MCE site
+            {t('results.official')}
           </a>
           <a
             href={CAMPUS.boundarySource}
@@ -180,7 +178,7 @@ export function ResultsPanel({
             rel="noopener noreferrer"
             className="text-slate-500 hover:underline"
           >
-            Boundary © OpenStreetMap
+            {t('results.boundary')}
           </a>
         </div>
       </div>

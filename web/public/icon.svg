@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="MCE Campus Navigator">
+  <rect width="512" height="512" rx="112" fill="#0b1f3a" />
+  <path d="M256 96c-62 0-112 49-112 109 0 46 26 88 64 134 18 23 33 43 48 65 15-22 30-42 48-65 38-46 64-88 64-134 0-60-50-109-112-109Z" fill="#f2b705" />
+  <path d="M256 152c-24 0-43 19-43 42s19 42 43 42 43-19 43-42-19-42-43-42Z" fill="#0b1f3a" />
+  <text x="256" y="404" font-family="Inter, Arial, Helvetica, sans-serif" font-size="72" font-weight="800" text-anchor="middle" fill="#f2b705">MCE</text>
+</svg>

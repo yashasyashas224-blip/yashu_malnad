@@ -4,6 +4,12 @@ A mobile-first campus map for **Malnad College of Engineering, Hassan**. Visitor
 search verified campus places, see them on a map embedded in the page, ask a
 grounded campus assistant, scan a campus QR code and hand walking directions to Google Maps.
 
+It also offers campus walking routes (with a step-free filter), a classroom finder,
+accessibility details, facility status, campus events, installable offline support and
+an English/Kannada interface with optional voice guidance. All seven extras read from
+`src/data/*.ts` and refuse to state anything that has not been surveyed — see
+“Features added in v0.2” below.
+
 This folder is a Vite + React + TypeScript app.
 It is the replacement front end for the deployed experience at
 `https://yashu-malnad-xi.vercel.app/`, keeping the navy-and-gold MCE identity and
@@ -35,6 +41,63 @@ the original Explore / Assistant / QR / SOS navigation on small screens.
 - **Pins stay put**: search and category filters dim non-matching pins instead
   of removing them, so the whole campus stays oriented on the map.
 
+## Features added in v0.2
+
+Every one of these is wired into the existing map, search, place card, assistant
+and QR flow rather than living on its own page.
+
+- **Campus walking routes** (`src/components/RoutePlanner.tsx`,
+  `src/lib/routing.ts`, `src/data/routes.ts`). Dijkstra over a small walking
+  network, distance and walking time, compass-bearing steps, “my location” as a
+  start point and a Google Maps handoff. Segments are currently
+  `survey: 'provisional'`, so every route is drawn dashed and labelled
+  **“Indicative — not surveyed”**. Replace a segment's survey fields with real
+  surveyed geometry to make it a solid, confident route.
+- **Step-free routing.** The step-free toggle only routes over segments marked
+  `stepFree: 'confirmed'`. While no such segment exists the planner refuses and
+  says so instead of guessing.
+- **Classroom finder** (`src/components/ClassroomFinder.tsx`,
+  `src/data/classrooms.ts`). Search by room, department or building and jump to
+  the building pin. The dataset ships empty; there are no invented room numbers
+  or course-to-room assignments.
+- **Accessibility details** (`src/components/AccessibilitySheet.tsx`,
+  `src/data/accessibility.ts`). Lists surveyed entrances, ramps, lifts,
+  washrooms and parking, and can highlight the related places on the map.
+- **Facility hours and status** (`src/data/facilities.ts`). Opening hours,
+  “status unconfirmed” / “temporarily closed” badges and a saved-snapshot note
+  so static hours are never presented as live.
+- **Campus events** (`src/components/EventsSheet.tsx`, `src/data/events.ts`).
+  Upcoming and past listings, computed expiry, and a link to the place where an
+  event is held. The dataset ships empty until MCE publishes confirmed events.
+- **Offline / installable** (`public/sw.js`, `public/manifest.webmanifest`,
+  `src/lib/offline.ts`). A hand-written service worker caches the app shell,
+  hashed assets and fonts, shows an offline banner and keeps an offline map
+  notice on the map. **Map tiles are deliberately never cached** — that would
+  break the OSM and Esri tile usage policies — so the pins, list, routes and
+  cards work offline while basemap imagery needs a connection.
+- **English + Kannada, with voice** (`src/lib/i18n.tsx`,
+  `src/lib/speech.ts`). A typed dictionary pair keeps the two locales in sync
+  (TypeScript fails the build if a key is missing), the choice is remembered in
+  `localStorage`, and Speech Synthesis reads route steps and place cards aloud.
+  If the device has no Kannada voice the app says it is falling back to English.
+
+No new npm dependencies were added for any of this: the router, i18n, speech,
+service worker and PNG app icon are all plain TypeScript and browser APIs.
+
+### Campus data still needed
+
+These features are honest but thin because the underlying facts are not
+published. Fill them in as MCE supplies them; each file's header documents the
+schema.
+
+| File | Needs |
+| --- | --- |
+| `src/data/routes.ts` | Surveyed centre-line geometry and step-free/step classification per segment |
+| `src/data/accessibility.ts` | Accessibility survey: entrances, ramps, lifts, washrooms, parking |
+| `src/data/classrooms.ts` | Room inventory and the department/building each room belongs to |
+| `src/data/facilities.ts` | Official opening hours and time-limited status changes |
+| `src/data/events.ts` | Confirmed events, dates, venues and organiser links |
+
 ## Run the site
 
 ```bash
@@ -43,7 +106,8 @@ npm install
 ```
 
 No API key or environment file is needed; the map ships with the app and loads
-public tiles.
+public tiles. The offline cache needs HTTPS (or localhost), which Vercel
+provides.
 
 Then:
 
@@ -153,6 +217,13 @@ Run in `web/`:
 npm run typecheck   # passed
 npm run build       # passed (tsc --noEmit + vite build)
 ```
+
+Checked in a browser at `http://127.0.0.1:5173/`: route planning
+(Main Gate → Canteen, 140 m / 2 min, dashed “Indicative — not surveyed”
+line), the step-free refusal, Kannada switching, facility and accessibility
+blocks on a place card, the offline banners, and the service worker,
+manifest and icon responses.
+
 
 The map, geolocation prompt and camera flow need a real browser; the build check
 only covers types and bundling. The embedded map needs no credential, so it

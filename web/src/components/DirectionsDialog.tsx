@@ -1,11 +1,8 @@
 import { useState } from 'react';
-import { ExternalLink, LocateFixed, Loader2, MapPin, Navigation } from 'lucide-react';
-import {
-  CATEGORY_BY_ID,
-  LOCATION_BY_ID,
-  type CampusLocation,
-} from '../data/locations';
+import { ExternalLink, Footprints, LocateFixed, Loader2, MapPin, Navigation } from 'lucide-react';
+import { CATEGORY_BY_ID, LOCATION_BY_ID, type CampusLocation } from '../data/locations';
 import { googleDirectionsUrl, type DirectionsOrigin } from '../lib/maps';
+import { useI18n } from '../lib/i18n';
 import { Modal } from './Modal';
 
 type StartMode = 'my-location' | 'place' | 'none';
@@ -21,6 +18,7 @@ interface DirectionsDialogProps {
   destination: CampusLocation;
   locations: CampusLocation[];
   onClose: () => void;
+  onCampusRoute: (location: CampusLocation) => void;
 }
 
 export function DirectionsDialog({
@@ -28,7 +26,9 @@ export function DirectionsDialog({
   destination,
   locations,
   onClose,
+  onCampusRoute,
 }: DirectionsDialogProps) {
+  const { t } = useI18n();
   const defaultStart =
     locations.find((location) => location.id === 'main-gate' && location.id !== destination.id) ??
     locations.find((location) => location.id !== destination.id);
@@ -58,10 +58,7 @@ export function DirectionsDialog({
   const requestLocation = (): void => {
     setMode('my-location');
     if (!('geolocation' in navigator)) {
-      setGeo({
-        kind: 'error',
-        message: 'This browser does not provide location. Choose a campus start point instead.',
-      });
+      setGeo({ kind: 'error', message: t('dir.noBrowser') });
       return;
     }
     setGeo({ kind: 'locating' });
@@ -79,22 +76,24 @@ export function DirectionsDialog({
       (error) => {
         setGeo({
           kind: 'error',
-          message:
-            error.code === 1
-              ? 'Location permission was denied. Choose the main gate as your start, or let Google Maps ask for your location.'
-              : 'Your location could not be read. Choose a campus start point instead.',
+          message: error.code === 1 ? t('dir.denied') : t('dir.unavailable'),
         });
       },
       { enableHighAccuracy: true, timeout: 12000, maximumAge: 60000 },
     );
   };
 
+  const optionClass = (active: boolean): string =>
+    `flex cursor-pointer items-start gap-2.5 rounded-xl border p-3 transition ${
+      active ? 'border-navy-700 bg-navy-900/5' : 'border-slate-200 hover:bg-slate-50'
+    }`;
+
   return (
     <Modal
       open={open}
       onClose={onClose}
-      title={`Directions to ${destination.name}`}
-      description="Google Maps provides the walking route. Indoor turn-by-turn guidance is not available."
+      title={t('dir.title', { place: destination.name })}
+      description={t('dir.description')}
       variant="center"
     >
       <div className="nice-scroll overflow-y-auto px-5 py-4">
@@ -109,24 +108,30 @@ export function DirectionsDialog({
           <div className="min-w-0">
             <p className="text-sm font-bold text-navy-900">{destination.name}</p>
             <p className="text-[11px] text-slate-500">
-              {destinationMeta.label} · {destination.coordinates.lat.toFixed(5)},{' '}
+              {destination.coordinates.lat.toFixed(5)},{' '}
               {destination.coordinates.lng.toFixed(5)}
             </p>
           </div>
         </div>
 
+        <button
+          type="button"
+          onClick={() => {
+            onClose();
+            onCampusRoute(destination);
+          }}
+          className="mt-3 inline-flex min-h-[42px] w-full items-center justify-center gap-2 rounded-xl border border-navy-900 bg-navy-900 px-3 py-2 text-xs font-extrabold text-white transition hover:bg-navy-800"
+        >
+          <Footprints aria-hidden="true" className="h-4 w-4" />
+          {t('dir.campusRoute')}
+        </button>
+
         <fieldset className="mt-4">
           <legend className="text-xs font-extrabold uppercase tracking-wider text-slate-500">
-            Starting point
+            {t('dir.start')}
           </legend>
           <div className="mt-2 space-y-2">
-            <label
-              className={`flex cursor-pointer items-start gap-2.5 rounded-xl border p-3 transition ${
-                mode === 'my-location'
-                  ? 'border-navy-700 bg-navy-900/5'
-                  : 'border-slate-200 hover:bg-slate-50'
-              }`}
-            >
+            <label className={optionClass(mode === 'my-location')}>
               <input
                 type="radio"
                 name="start-mode"
@@ -136,9 +141,11 @@ export function DirectionsDialog({
                 className="mt-0.5 h-4 w-4 accent-navy-900"
               />
               <span className="min-w-0 flex-1">
-                <span className="block text-sm font-bold text-navy-900">My current location</span>
+                <span className="block text-sm font-bold text-navy-900">
+                  {t('dir.myLocation')}
+                </span>
                 <span className="mt-0.5 block text-[11px] leading-relaxed text-slate-500">
-                  Used only after you allow it. Your position is not stored.
+                  {t('dir.myLocationHelp')}
                 </span>
                 <button
                   type="button"
@@ -150,12 +157,12 @@ export function DirectionsDialog({
                   ) : (
                     <LocateFixed aria-hidden="true" className="h-3.5 w-3.5" />
                   )}
-                  {geo.kind === 'ready' ? 'Update my location' : 'Allow my location'}
+                  {geo.kind === 'ready' ? t('dir.updateLocation') : t('dir.allowLocation')}
                 </button>
                 <span aria-live="polite" className="mt-1 block text-[11px] leading-relaxed">
                   {geo.kind === 'ready' ? (
                     <span className="font-semibold text-emerald-700">
-                      Location ready (±{Math.round(geo.accuracy)} m).
+                      {t('dir.ready', { distance: Math.round(geo.accuracy) })}
                     </span>
                   ) : geo.kind === 'error' ? (
                     <span className="text-red-700">{geo.message}</span>
@@ -164,13 +171,7 @@ export function DirectionsDialog({
               </span>
             </label>
 
-            <label
-              className={`flex cursor-pointer items-start gap-2.5 rounded-xl border p-3 transition ${
-                mode === 'place'
-                  ? 'border-navy-700 bg-navy-900/5'
-                  : 'border-slate-200 hover:bg-slate-50'
-              }`}
-            >
+            <label className={optionClass(mode === 'place')}>
               <input
                 type="radio"
                 name="start-mode"
@@ -180,12 +181,12 @@ export function DirectionsDialog({
                 className="mt-0.5 h-4 w-4 accent-navy-900"
               />
               <span className="min-w-0 flex-1">
-                <span className="block text-sm font-bold text-navy-900">A campus place</span>
+                <span className="block text-sm font-bold text-navy-900">{t('dir.place')}</span>
                 <span className="mt-0.5 block text-[11px] text-slate-500">
-                  Useful if you are arriving at the gate.
+                  {t('dir.placeHelp')}
                 </span>
                 <select
-                  aria-label="Choose a starting campus place"
+                  aria-label={t('dir.choosePlace')}
                   value={placeId}
                   disabled={mode !== 'place'}
                   onChange={(event) => setPlaceId(event.target.value)}
@@ -202,13 +203,7 @@ export function DirectionsDialog({
               </span>
             </label>
 
-            <label
-              className={`flex cursor-pointer items-start gap-2.5 rounded-xl border p-3 transition ${
-                mode === 'none'
-                  ? 'border-navy-700 bg-navy-900/5'
-                  : 'border-slate-200 hover:bg-slate-50'
-              }`}
-            >
+            <label className={optionClass(mode === 'none')}>
               <input
                 type="radio"
                 name="start-mode"
@@ -218,9 +213,11 @@ export function DirectionsDialog({
                 className="mt-0.5 h-4 w-4 accent-navy-900"
               />
               <span>
-                <span className="block text-sm font-bold text-navy-900">Let Google Maps decide</span>
+                <span className="block text-sm font-bold text-navy-900">
+                  {t('dir.googleDecides')}
+                </span>
                 <span className="mt-0.5 block text-[11px] text-slate-500">
-                  Google Maps may ask for your location when it opens.
+                  {t('dir.googleDecidesHelp')}
                 </span>
               </span>
             </label>
@@ -229,8 +226,7 @@ export function DirectionsDialog({
 
         <p className="mt-3 flex items-start gap-2 rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-[11px] leading-relaxed text-amber-900">
           <MapPin aria-hidden="true" className="mt-0.5 h-3.5 w-3.5 shrink-0" />
-          Verified positions are shown as pins. There is no verified indoor route, so this opens
-          Google Maps for the walking route rather than inventing corridor-level steps.
+          {t('dir.note')}
         </p>
 
         <a
@@ -240,14 +236,12 @@ export function DirectionsDialog({
           className="mt-3 inline-flex min-h-[46px] w-full items-center justify-center gap-2 rounded-xl bg-gold-500 px-4 py-2.5 text-sm font-extrabold text-navy-950 shadow-sm transition hover:bg-gold-400"
         >
           <Navigation aria-hidden="true" className="h-4 w-4" />
-          Open walking directions in Google Maps
+          {t('dir.open')}
           <ExternalLink aria-hidden="true" className="h-3.5 w-3.5" />
         </a>
 
         {mode === 'my-location' && geo.kind !== 'ready' ? (
-          <p className="mt-2 text-center text-[11px] text-slate-500">
-            Google Maps will ask for your location when it opens.
-          </p>
+          <p className="mt-2 text-center text-[11px] text-slate-500">{t('dir.askLocation')}</p>
         ) : null}
 
         <button
@@ -255,7 +249,7 @@ export function DirectionsDialog({
           onClick={onClose}
           className="mt-2 w-full rounded-xl px-4 py-2 text-xs font-bold text-slate-500 hover:bg-slate-50 hover:text-navy-900"
         >
-          Cancel
+          {t('common.close')}
         </button>
       </div>
     </Modal>

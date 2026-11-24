@@ -1,4 +1,5 @@
 import { CATEGORIES, type CategoryId } from '../data/locations';
+import { useI18n, type TranslationKey } from '../lib/i18n';
 
 interface CategoryBarProps {
   category: CategoryId | 'all';
@@ -6,16 +7,21 @@ interface CategoryBarProps {
 }
 
 export function CategoryBar({ category, onChange }: CategoryBarProps) {
+  const { t } = useI18n();
   const options: Array<{ id: CategoryId | 'all'; label: string; emoji: string }> = [
-    { id: 'all', label: 'All places', emoji: '📍' },
-    ...CATEGORIES.map((item) => ({ id: item.id, label: item.label, emoji: item.emoji })),
+    { id: 'all', label: t('cat.all'), emoji: '📍' },
+    ...CATEGORIES.map((item) => ({
+      id: item.id,
+      label: t(`cat.${item.id}` as TranslationKey),
+      emoji: item.emoji,
+    })),
   ];
 
   return (
     <div className="shrink-0 border-b border-slate-200 bg-white">
       <div
         role="group"
-        aria-label="Filter campus places by category"
+        aria-label={t('cat.filterLabel')}
         className="category-scroll flex items-center gap-1.5 overflow-x-auto px-3 py-2 sm:px-4"
       >
         {options.map((option) => {

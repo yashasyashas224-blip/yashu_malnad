@@ -13,6 +13,9 @@ import {
   type CategoryId,
 } from './data/locations';
 import { filterByCategory, searchLocations } from './lib/search';
+import { useOnlineStatus } from './lib/offline';
+import { useI18n } from './lib/i18n';
+import type { WalkingRoute } from './lib/routing';
 import { Header } from './components/Header';
 import { CategoryBar } from './components/CategoryBar';
 import { ResultsPanel } from './components/ResultsPanel';
@@ -21,6 +24,11 @@ import { LocationCard } from './components/LocationCard';
 import { AssistantPanel } from './components/AssistantPanel';
 import { ScannerDialog } from './components/ScannerDialog';
 import { DirectionsDialog } from './components/DirectionsDialog';
+import { RoutePlanner } from './components/RoutePlanner';
+import { ClassroomFinder } from './components/ClassroomFinder';
+import { EventsSheet } from './components/EventsSheet';
+import { AccessibilitySheet } from './components/AccessibilitySheet';
+import { ToolsSheet } from './components/ToolsSheet';
 import { BottomNav } from './components/BottomNav';
 import { Modal } from './components/Modal';
 
@@ -36,6 +44,7 @@ function readPlaceFromUrl(): string | null {
 }
 
 export function App() {
+  const { t } = useI18n();
   const [query, setQuery] = useState('');
   const deferredQuery = useDeferredValue(query);
   const [category, setCategory] = useState<CategoryId | 'all'>('all');
@@ -45,6 +54,15 @@ export function App() {
   const [assistantOpen, setAssistantOpen] = useState(false);
   const [scannerOpen, setScannerOpen] = useState(false);
   const [directionsFor, setDirectionsFor] = useState<CampusLocation | null>(null);
+  const [toolsOpen, setToolsOpen] = useState(false);
+  const [routeOpen, setRouteOpen] = useState(false);
+  const [routeDestinationId, setRouteDestinationId] = useState<string | null>(null);
+  const [plannedRoute, setPlannedRoute] = useState<WalkingRoute | null>(null);
+  const [classroomsOpen, setClassroomsOpen] = useState(false);
+  const [eventsOpen, setEventsOpen] = useState(false);
+  const [accessibilityOpen, setAccessibilityOpen] = useState(false);
+  const [showAccessibilityOnMap, setShowAccessibilityOnMap] = useState(false);
+  const online = useOnlineStatus();
   const [highContrast, setHighContrast] = useState<boolean>(() => {
     try {
       return window.localStorage.getItem('mce-campus-contrast') === 'high';
@@ -117,6 +135,15 @@ export function App() {
     }
   }, []);
 
+  const openCampusRoute = useCallback((location: CampusLocation) => {
+    setRouteDestinationId(location.id);
+    setRouteOpen(true);
+  }, []);
+
+  const handleRouteChange = useCallback((next: WalkingRoute | null) => {
+    setPlannedRoute(next);
+  }, []);
+
   useEffect(() => {
     const applyUrl = (): void => {
       const id = readPlaceFromUrl();
@@ -157,7 +184,18 @@ export function App() {
         onToggleContrast={() => setHighContrast((value) => !value)}
         onAssistant={() => setAssistantOpen(true)}
         onScan={() => setScannerOpen(true)}
+        onTools={() => setToolsOpen(true)}
       />
+
+      {!online ? (
+        <div
+          role="status"
+          aria-live="polite"
+          className="shrink-0 border-b border-amber-300 bg-amber-100 px-3 py-1.5 text-center text-[11px] font-bold text-amber-900"
+        >
+          {t('offline.banner')}
+        </div>
+      ) : null}
 
       <CategoryBar category={category} onChange={setCategory} />
 
@@ -179,6 +217,8 @@ export function App() {
             visibleIds={visibleIds}
             selectedId={selectedId}
             focusToken={focusToken}
+            route={plannedRoute}
+            showAccessibility={showAccessibilityOnMap}
             onSelect={(id) => {
               const location = LOCATION_BY_ID.get(id);
               if (location) openLocation(location);
@@ -190,6 +230,8 @@ export function App() {
               location={selected}
               onClose={closeCard}
               onDirections={(location) => setDirectionsFor(location)}
+              onCampusRoute={openCampusRoute}
+              onAccessibility={() => setAccessibilityOpen(true)}
             />
           ) : null}
         </main>
@@ -203,6 +245,7 @@ export function App() {
         }}
         onAssistant={() => setAssistantOpen(true)}
         onScan={() => setScannerOpen(true)}
+        onMore={() => setToolsOpen(true)}
       />
 
       <p aria-live="polite" className="sr-only">
@@ -212,7 +255,7 @@ export function App() {
       <Modal
         open={exploreOpen}
         onClose={() => setExploreOpen(false)}
-        title="Explore campus"
+        title={t('results.exploreTitle')}
         description={`${LOCATIONS.length} verified places · positions checked 23 November 2026`}
         variant="sheet"
       >
@@ -254,8 +297,69 @@ export function App() {
           destination={directionsFor}
           locations={LOCATIONS}
           onClose={() => setDirectionsFor(null)}
+          onCampusRoute={openCampusRoute}
         />
       ) : null}
+
+      {routeOpen ? (
+        <RoutePlanner
+          key={`route-${routeDestinationId ?? 'any'}`}
+          open
+          initialDestinationId={routeDestinationId}
+          onClose={() => {
+            setRouteOpen(false);
+            setRouteDestinationId(null);
+          }}
+          onRouteChange={handleRouteChange}
+          onOpenLocation={(location) => openLocation(location)}
+        />
+      ) : null}
+
+      <ClassroomFinder
+        open={classroomsOpen}
+        onClose={() => setClassroomsOpen(false)}
+        onDirections={(location) => setDirectionsFor(location)}
+        onCampusRoute={(location) => {
+          setClassroomsOpen(false);
+          openCampusRoute(location);
+        }}
+      />
+
+      <EventsSheet
+        open={eventsOpen}
+        onClose={() => setEventsOpen(false)}
+        onOpenLocation={(location) => {
+          setEventsOpen(false);
+          openLocation(location);
+        }}
+        onCampusRoute={(location) => {
+          setEventsOpen(false);
+          openCampusRoute(location);
+        }}
+      />
+
+      <AccessibilitySheet
+        open={accessibilityOpen}
+        onClose={() => setAccessibilityOpen(false)}
+        showOnMap={showAccessibilityOnMap}
+        onToggleMap={() => setShowAccessibilityOnMap((value) => !value)}
+        onOpenLocation={(location) => {
+          setAccessibilityOpen(false);
+          openLocation(location);
+        }}
+      />
+
+      <ToolsSheet
+        open={toolsOpen}
+        onClose={() => setToolsOpen(false)}
+        onRoutes={() => {
+          setRouteDestinationId(selectedId);
+          setRouteOpen(true);
+        }}
+        onClassrooms={() => setClassroomsOpen(true)}
+        onEvents={() => setEventsOpen(true)}
+        onAccessibility={() => setAccessibilityOpen(true)}
+      />
 
       <p className="sr-only">
         Campus map data checked on 23 November 2026. {CAMPUS.name}, {CAMPUS.address}.

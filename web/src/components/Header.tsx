@@ -1,6 +1,7 @@
-import { Contrast, MessageCircle, ScanLine } from 'lucide-react';
+import { Contrast, Languages, MessageCircle, ScanLine, SlidersHorizontal } from 'lucide-react';
 import type { CampusLocation } from '../data/locations';
 import type { SearchHit } from '../lib/search';
+import { useI18n } from '../lib/i18n';
 import { SearchBox } from './SearchBox';
 
 interface HeaderProps {
@@ -13,6 +14,7 @@ interface HeaderProps {
   onToggleContrast: () => void;
   onAssistant: () => void;
   onScan: () => void;
+  onTools: () => void;
 }
 
 export function Header({
@@ -25,14 +27,17 @@ export function Header({
   onToggleContrast,
   onAssistant,
   onScan,
+  onTools,
 }: HeaderProps) {
+  const { t, language, setLanguage } = useI18n();
+
   return (
     <header className="relative z-50 shrink-0 bg-navy-900 text-white">
       <div className="mx-auto w-full max-w-[1600px] px-3 pt-2 sm:px-4">
         <div className="flex items-center gap-2.5">
           <a
             href="/"
-            aria-label="MCE Smart Campus Navigator home"
+            aria-label={t('header.home')}
             className="flex min-w-0 items-center gap-2.5 rounded-xl"
           >
             <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gold-500 text-[12px] font-extrabold tracking-tight text-navy-950 shadow-sm">
@@ -40,10 +45,10 @@ export function Header({
             </span>
             <span className="min-w-0">
               <span className="block truncate text-[13px] font-extrabold leading-tight sm:text-sm">
-                Malnad College of Engineering
+                {t('header.title')}
               </span>
               <span className="block truncate text-[10px] font-medium text-slate-300">
-                Campus Navigator · Hassan
+                {t('header.subtitle')}
               </span>
             </span>
           </a>
@@ -64,10 +69,25 @@ export function Header({
           <div className="ml-auto flex shrink-0 items-center gap-1">
             <button
               type="button"
+              onClick={() => setLanguage(language === 'en' ? 'kn' : 'en')}
+              aria-label={t('header.language')}
+              lang={language === 'en' ? 'kn' : 'en'}
+              title={t('header.language')}
+              className="grid h-9 min-w-[36px] place-items-center rounded-xl border border-white/15 px-1.5 text-[11px] font-extrabold text-slate-200 transition hover:bg-white/10 hover:text-white"
+            >
+              <Languages aria-hidden="true" className="h-3.5 w-3.5" />
+              <span className="sr-only">{t('header.language')}</span>
+              <span aria-hidden="true" className="mt-0.5 text-[9px] leading-none">
+                {language === 'en' ? 'EN' : 'ಕ'}
+              </span>
+            </button>
+
+            <button
+              type="button"
               onClick={onToggleContrast}
               aria-pressed={highContrast}
-              aria-label="Toggle high contrast mode"
-              title="High contrast"
+              aria-label={t('header.contrast')}
+              title={t('header.contrast')}
               className={`grid h-9 w-9 place-items-center rounded-xl border transition ${
                 highContrast
                   ? 'border-gold-400 bg-gold-500 text-navy-950'
@@ -83,7 +103,7 @@ export function Header({
               className="hidden min-h-[38px] items-center gap-1.5 rounded-xl bg-gold-500 px-3 text-xs font-extrabold text-navy-950 transition hover:bg-gold-400 md:inline-flex"
             >
               <MessageCircle aria-hidden="true" className="h-4 w-4" />
-              Campus guide
+              {t('header.assistant')}
             </button>
 
             <button
@@ -92,7 +112,17 @@ export function Header({
               className="hidden min-h-[38px] items-center gap-1.5 rounded-xl border border-white/20 px-3 text-xs font-bold text-white transition hover:bg-white/10 md:inline-flex"
             >
               <ScanLine aria-hidden="true" className="h-4 w-4" />
-              Scan QR
+              {t('header.scan')}
+            </button>
+
+            <button
+              type="button"
+              onClick={onTools}
+              aria-label={t('more.title')}
+              title={t('more.title')}
+              className="grid h-9 w-9 place-items-center rounded-xl border border-white/15 text-slate-200 transition hover:bg-white/10 hover:text-white"
+            >
+              <SlidersHorizontal aria-hidden="true" className="h-4 w-4" />
             </button>
           </div>
         </div>
@@ -105,7 +135,7 @@ export function Header({
             results={results}
             onSelect={onSelectResult}
             isSearching={isSearching}
-            placeholder="Search a campus place…"
+            placeholder={t('search.mobilePlaceholder')}
           />
         </div>
       </div>

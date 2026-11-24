@@ -4,8 +4,10 @@ import {
   CATEGORY_BY_ID,
   CAMPUS,
   type CampusLocation,
+  type CategoryId,
 } from '../data/locations';
 import type { SearchHit } from '../lib/search';
+import { useI18n, type TranslationKey } from '../lib/i18n';
 
 interface SearchBoxProps {
   value: string;
@@ -23,9 +25,10 @@ export function SearchBox({
   results,
   onSelect,
   isSearching,
-  placeholder = 'Search library, CSE, food, main gate…',
+  placeholder,
   inputId,
 }: SearchBoxProps) {
+  const { t } = useI18n();
   const [focused, setFocused] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -67,7 +70,7 @@ export function SearchBox({
   return (
     <div className="relative w-full">
       <label htmlFor={resolvedInputId} className="sr-only">
-        Search verified campus places
+        {t('search.label')}
       </label>
 
       <div className="flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-3 py-2 shadow-sm transition focus-within:border-gold-500 focus-within:ring-4 focus-within:ring-gold-500/25">
@@ -80,13 +83,11 @@ export function SearchBox({
           aria-expanded={showList}
           aria-controls={listId}
           aria-autocomplete="list"
-          aria-activedescendant={
-            showList && activeHit ? optionId(activeIndex) : undefined
-          }
+          aria-activedescendant={showList && activeHit ? optionId(activeIndex) : undefined}
           autoComplete="off"
           spellCheck={false}
           value={value}
-          placeholder={placeholder}
+          placeholder={placeholder ?? t('search.placeholder')}
           onChange={(event) => {
             onChange(event.target.value);
             setFocused(true);
@@ -127,7 +128,7 @@ export function SearchBox({
         {value ? (
           <button
             type="button"
-            aria-label="Clear search"
+            aria-label={t('search.clear')}
             onClick={() => {
               onChange('');
               setActiveIndex(-1);
@@ -146,9 +147,11 @@ export function SearchBox({
 
       <p aria-live="polite" className="sr-only">
         {isSearching
-          ? 'Searching verified campus places'
+          ? t('search.searching')
           : showList
-            ? `${results.length} matching ${results.length === 1 ? 'place' : 'places'}`
+            ? results.length === 1
+              ? t('search.resultOne')
+              : t('search.resultMany', { count: results.length })
             : ''}
       </p>
 
@@ -156,22 +159,21 @@ export function SearchBox({
         <div
           id={listId}
           role="listbox"
-          aria-label="Matching campus places"
+          aria-label={t('search.label')}
           className="absolute left-0 right-0 top-full z-50 mt-2 max-h-[22rem] overflow-y-auto rounded-2xl border border-slate-200 bg-white py-1 shadow-2xl"
         >
           {isSearching ? (
             <div className="flex items-center gap-2 px-4 py-4 text-sm text-slate-500">
               <Loader2 aria-hidden="true" className="h-4 w-4 animate-spin" />
-              Searching verified places…
+              {t('search.searching')}
             </div>
           ) : results.length === 0 ? (
             <div className="px-4 py-4">
               <p className="text-sm font-semibold text-navy-900">
-                No verified place matches “{value.trim()}”.
+                {t('search.noMatchTitle', { query: value.trim() })}
               </p>
               <p className="mt-1 text-xs leading-relaxed text-slate-500">
-                Unmapped facilities are not guessed. Try “library”, “canteen” or
-                “main gate”, or check Google Maps for the wider area.
+                {t('search.noMatchBody')}
               </p>
               <a
                 href={CAMPUS.googleMapsQueryUrl}
@@ -179,7 +181,7 @@ export function SearchBox({
                 rel="noopener noreferrer"
                 className="mt-3 inline-flex items-center gap-1.5 rounded-lg bg-navy-900 px-3 py-2 text-xs font-bold text-white transition hover:bg-navy-800"
               >
-                Open MCE area in Google Maps
+                {t('search.openGoogle')}
                 <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5" />
               </a>
             </div>
@@ -214,7 +216,8 @@ export function SearchBox({
                       {hit.location.name}
                     </span>
                     <span className="block truncate text-[11px] text-slate-500">
-                      {meta.label} · {hit.location.shortName}
+                      {t(`cat.${hit.location.category}` as TranslationKey)} ·{' '}
+                      {hit.location.shortName}
                     </span>
                   </span>
                 </div>

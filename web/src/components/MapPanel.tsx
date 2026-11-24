@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
 import {
+  CloudOff,
   Crosshair,
   Layers,
   Loader2,
@@ -16,6 +17,10 @@ import {
   type CampusLocation,
   type CategoryId,
 } from '../data/locations';
+import { ACCESSIBILITY_FEATURES, ACCESSIBILITY_KIND_BY_ID } from '../data/accessibility';
+import type { WalkingRoute } from '../lib/routing';
+import { useOnlineStatus } from '../lib/offline';
+import { useI18n } from '../lib/i18n';
 
 /** White glyphs drawn inside each teardrop pin (24×24 icon space). */
 const PIN_GLYPHS: Record<CategoryId, string> = {
@@ -50,6 +55,8 @@ interface MapPanelProps {
   visibleIds: Set<string>;
   selectedId: string | null;
   focusToken: number;
+  route: WalkingRoute | null;
+  showAccessibility: boolean;
   onSelect: (id: string) => void;
 }
 
@@ -83,11 +90,17 @@ export function MapPanel({
   visibleIds,
   selectedId,
   focusToken,
+  route,
+  showAccessibility,
   onSelect,
 }: MapPanelProps) {
+  const { t } = useI18n();
+  const online = useOnlineStatus();
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
   const tileLayerRef = useRef<L.TileLayer | null>(null);
+  const routeLayerRef = useRef<L.LayerGroup | null>(null);
+  const accessibilityLayerRef = useRef<L.LayerGroup | null>(null);
   const markersRef = useRef<Map<string, { marker: L.Marker; element: HTMLElement | null }>>(
     new Map(),
   );
@@ -170,12 +183,94 @@ export function MapPanel({
       observer.disconnect();
       for (const entry of markersRef.current.values()) entry.marker.remove();
       markersRef.current.clear();
+      routeLayerRef.current = null;
+      accessibilityLayerRef.current = null;
       userLayerRef.current = null;
       tileLayerRef.current = null;
       mapRef.current = null;
       map.remove();
     };
   }, [locations]);
+
+  // The planned walking route, drawn on top of the pins and labels.
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) return;
+    routeLayerRef.current?.remove();
+    routeLayerRef.current = null;
+    if (!route) return;
+
+    const layer = L.layerGroup().addTo(map);
+    const latlngs = route.path.map((point) => [point.lat, point.lng] as L.LatLngTuple);
+
+    if (latlngs.length > 1) {
+      L.polyline(latlngs, {
+        color: route.stepFree ? '#047857' : '#0b1f3a',
+        weight: 5,
+        opacity: 0.92,
+        dashArray: route.provisional ? '9 7' : undefined,
+        lineCap: 'round',
+        interactive: false,
+      }).addTo(layer);
+    }
+
+    const first = latlngs[0];
+    const last = latlngs[latlngs.length - 1];
+    if (first) {
+      L.circleMarker(first, {
+        radius: 7,
+        color: '#ffffff',
+        weight: 3,
+        fillColor: '#0b1f3a',
+        fillOpacity: 1,
+        interactive: false,
+      }).addTo(layer);
+    }
+    if (last) {
+      L.circleMarker(last, {
+        radius: 7,
+        color: '#ffffff',
+        weight: 3,
+        fillColor: '#f2b705',
+        fillOpacity: 1,
+        interactive: false,
+      }).addTo(layer);
+    }
+
+    routeLayerRef.current = layer;
+    if (latlngs.length > 0) {
+      map.fitBounds(L.latLngBounds(latlngs), { padding: [44, 44] });
+    }
+  }, [route]);
+
+  // Surveyed accessibility features, shown only when the visitor asks for them.
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) return;
+    accessibilityLayerRef.current?.remove();
+    accessibilityLayerRef.current = null;
+    if (!showAccessibility || ACCESSIBILITY_FEATURES.length === 0) return;
+
+    const layer = L.layerGroup().addTo(map);
+    for (const feature of ACCESSIBILITY_FEATURES) {
+      const place = feature.locationId ? LOCATION_BY_ID.get(feature.locationId) : undefined;
+      const point = feature.coordinates ?? place?.coordinates ?? null;
+      if (!point) continue;
+      L.circleMarker([point.lat, point.lng], {
+        radius: 7,
+        color: '#ffffff',
+        weight: 2.5,
+        fillColor: '#047857',
+        fillOpacity: 1,
+      })
+        .bindTooltip(`${ACCESSIBILITY_KIND_BY_ID[feature.kind].label}: ${feature.label}`, {
+          direction: 'top',
+          className: 'pin-label',
+        })
+        .addTo(layer);
+    }
+    accessibilityLayerRef.current = layer;
+  }, [showAccessibility]);
 
   useEffect(() => {
     for (const [id, entry] of markersRef.current) {
@@ -298,6 +393,21 @@ export function MapPanel({
         role="region"
         aria-label={`Interactive campus map of ${CAMPUS.name}, Hassan. ${locations.length} labelled landmarks.`}
       />
+
+      {!online ? (
+        <div
+          role="status"
+          className="pointer-events-none absolute bottom-3 left-3 right-16 z-20 rounded-xl border border-amber-300 bg-amber-50/95 px-3 py-2 shadow-lg sm:max-w-sm"
+        >
+          <p className="flex items-start gap-1.5 text-[11px] font-semibold leading-relaxed text-amber-900">
+            <CloudOff aria-hidden="true" className="mt-0.5 h-3.5 w-3.5 shrink-0" />
+            <span>
+              <span className="block font-extrabold">{t('offline.tilesUnavailable')}</span>
+              {t('offline.mapNote')}
+            </span>
+          </p>
+        </div>
+      ) : null}
 
       <div className="absolute right-3 top-3 z-20 flex flex-col gap-1.5">
         <button
