@@ -1,12 +1,15 @@
 import { useEffect, useId, useRef, useState } from 'react';
-import { ArrowUpRight, Loader2, Search, X } from 'lucide-react';
+import { ArrowUpRight, LifeBuoy, Loader2, Search, X } from 'lucide-react';
 import {
   CATEGORY_BY_ID,
   CAMPUS,
+  LOCATION_BY_ID,
   type CampusLocation,
   type CategoryId,
 } from '../data/locations';
+import { SERVICE_NEED_BY_ID, type CampusService } from '../data/services';
 import type { SearchHit } from '../lib/search';
+import type { ServiceHit } from '../lib/services';
 import { useI18n, type TranslationKey } from '../lib/i18n';
 
 interface SearchBoxProps {
@@ -14,6 +17,8 @@ interface SearchBoxProps {
   onChange: (value: string) => void;
   results: SearchHit[];
   onSelect: (location: CampusLocation) => void;
+  serviceHits?: ServiceHit[];
+  onSelectService?: (service: CampusService) => void;
   isSearching: boolean;
   placeholder?: string;
   inputId?: string;
@@ -24,6 +29,8 @@ export function SearchBox({
   onChange,
   results,
   onSelect,
+  serviceHits = [],
+  onSelectService,
   isSearching,
   placeholder,
   inputId,
@@ -40,7 +47,12 @@ export function SearchBox({
   const optionId = (index: number): string => `${listId}-option-${index}`;
 
   const showList = focused && value.trim().length > 0;
-  const activeHit = activeIndex >= 0 ? results[activeIndex] : undefined;
+  const services = serviceHits;
+  const optionCount = results.length + services.length;
+  const activeHit =
+    activeIndex >= 0 && activeIndex < results.length ? results[activeIndex] : undefined;
+  const activeService =
+    activeIndex >= results.length ? services[activeIndex - results.length] : undefined;
 
   useEffect(() => {
     setActiveIndex(-1);
@@ -53,8 +65,8 @@ export function SearchBox({
   }, []);
 
   useEffect(() => {
-    if (activeIndex >= results.length) setActiveIndex(-1);
-  }, [activeIndex, results.length]);
+    if (activeIndex >= optionCount) setActiveIndex(-1);
+  }, [activeIndex, optionCount]);
 
   const choose = (location: CampusLocation): void => {
     const now = Date.now();
@@ -63,6 +75,13 @@ export function SearchBox({
     }
     lastChosen.current = { id: location.id, at: now };
     onSelect(location);
+    setFocused(false);
+    inputRef.current?.blur();
+  };
+
+  const chooseService = (service: CampusService): void => {
+    if (!onSelectService) return;
+    onSelectService(service);
     setFocused(false);
     inputRef.current?.blur();
   };
@@ -83,7 +102,9 @@ export function SearchBox({
           aria-expanded={showList}
           aria-controls={listId}
           aria-autocomplete="list"
-          aria-activedescendant={showList && activeHit ? optionId(activeIndex) : undefined}
+          aria-activedescendant={
+            showList && (activeHit || activeService) ? optionId(activeIndex) : undefined
+          }
           autoComplete="off"
           spellCheck={false}
           value={value}
@@ -103,18 +124,23 @@ export function SearchBox({
           onKeyDown={(event) => {
             if (event.key === 'ArrowDown') {
               event.preventDefault();
-              if (results.length > 0) {
+              if (optionCount > 0) {
                 setFocused(true);
-                setActiveIndex((index) => Math.min(index + 1, results.length - 1));
+                setActiveIndex((index) => Math.min(index + 1, optionCount - 1));
               }
             } else if (event.key === 'ArrowUp') {
               event.preventDefault();
               setActiveIndex((index) => Math.max(index - 1, 0));
             } else if (event.key === 'Enter') {
-              const hit = activeHit ?? results[0];
-              if (hit) {
+              if (activeService) {
                 event.preventDefault();
-                choose(hit.location);
+                chooseService(activeService.service);
+              } else {
+                const hit = activeHit ?? results[0];
+                if (hit) {
+                  event.preventDefault();
+                  choose(hit.location);
+                }
               }
             } else if (event.key === 'Escape') {
               setFocused(false);
@@ -167,7 +193,7 @@ export function SearchBox({
               <Loader2 aria-hidden="true" className="h-4 w-4 animate-spin" />
               {t('search.searching')}
             </div>
-          ) : results.length === 0 ? (
+          ) : results.length === 0 && services.length === 0 ? (
             <div className="px-4 py-4">
               <p className="text-sm font-semibold text-navy-900">
                 {t('search.noMatchTitle', { query: value.trim() })}
@@ -224,6 +250,51 @@ export function SearchBox({
               );
             })
           )}
+
+          {!isSearching && services.length > 0 ? (
+            <div className="mt-1 border-t border-slate-100 pt-1">
+              <p className="px-3 py-1 text-[10px] font-extrabold uppercase tracking-wider text-slate-400">
+                Campus services
+              </p>
+              {services.map((hit, offset) => {
+                const index = results.length + offset;
+                const place = LOCATION_BY_ID.get(hit.service.locationId);
+                const need = SERVICE_NEED_BY_ID.get(hit.service.needId);
+                return (
+                  <div
+                    key={hit.service.id}
+                    id={optionId(index)}
+                    role="option"
+                    aria-selected={index === activeIndex}
+                    onMouseDown={(event) => {
+                      event.preventDefault();
+                      chooseService(hit.service);
+                    }}
+                    onClick={() => chooseService(hit.service)}
+                    onMouseEnter={() => setActiveIndex(index)}
+                    className={`mx-1 flex cursor-pointer items-center gap-3 rounded-xl px-3 py-2.5 transition ${
+                      index === activeIndex ? 'bg-gold-500/15' : 'hover:bg-slate-50'
+                    }`}
+                  >
+                    <span
+                      aria-hidden="true"
+                      className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-emerald-50 text-emerald-800"
+                    >
+                      <LifeBuoy className="h-4 w-4" />
+                    </span>
+                    <span className="min-w-0">
+                      <span className="block truncate text-sm font-bold text-navy-900">
+                        {hit.service.title}
+                      </span>
+                      <span className="block truncate text-[11px] text-slate-500">
+                        {need?.label ?? 'Service'} · {place?.shortName ?? 'Unmapped'}
+                      </span>
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          ) : null}
         </div>
       ) : null}
     </div>

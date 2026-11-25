@@ -10,6 +10,8 @@ import {
   VideoOff,
 } from 'lucide-react';
 import type { CampusLocation } from '../data/locations';
+import { INDOOR_QR_HINT } from '../data/indoor';
+import { parseIndoorCode, type IndoorCodeTarget } from '../lib/indoor';
 import { QR_FORMAT_HINT, resolveCampusQr } from '../lib/qr';
 import { Modal } from './Modal';
 
@@ -29,6 +31,7 @@ interface ScannerDialogProps {
   onClose: () => void;
   onResolved: (location: CampusLocation) => void;
   onSearchInstead: () => void;
+  onIndoorCode?: (target: IndoorCodeTarget) => void;
 }
 
 function stopStream(video: HTMLVideoElement | null): void {
@@ -76,6 +79,7 @@ export function ScannerDialog({
   onClose,
   onResolved,
   onSearchInstead,
+  onIndoorCode,
 }: ScannerDialogProps) {
   const [started, setStarted] = useState(false);
   const [status, setStatus] = useState<ScanStatus>('idle');
@@ -86,6 +90,7 @@ export function ScannerDialog({
   const locationsRef = useRef(locations);
   const onResolvedRef = useRef(onResolved);
   const onCloseRef = useRef(onClose);
+  const onIndoorCodeRef = useRef(onIndoorCode);
 
   useEffect(() => {
     locationsRef.current = locations;
@@ -94,7 +99,8 @@ export function ScannerDialog({
   useEffect(() => {
     onResolvedRef.current = onResolved;
     onCloseRef.current = onClose;
-  }, [onClose, onResolved]);
+    onIndoorCodeRef.current = onIndoorCode;
+  }, [onClose, onIndoorCode, onResolved]);
 
   useEffect(() => {
     if (open) return;
@@ -131,6 +137,13 @@ export function ScannerDialog({
       controls?.stop();
       controls = null;
       stopStream(video);
+
+      const indoor = parseIndoorCode(content);
+      if (indoor && onIndoorCodeRef.current) {
+        onIndoorCodeRef.current(indoor);
+        onCloseRef.current();
+        return;
+      }
 
       const resolution = resolveCampusQr(content, locationsRef.current);
       if (resolution.ok) {
@@ -242,9 +255,10 @@ export function ScannerDialog({
                 Search for a place instead
               </button>
             </div>
-            <p className="mt-3 rounded-xl bg-slate-50 p-2.5 text-left text-[10px] leading-relaxed text-slate-500">
-              {QR_FORMAT_HINT}
-            </p>
+            <div className="mt-3 space-y-1.5 rounded-xl bg-slate-50 p-2.5 text-left text-[10px] leading-relaxed text-slate-500">
+              <p>{QR_FORMAT_HINT}</p>
+              <p>{INDOOR_QR_HINT}</p>
+            </div>
           </div>
         ) : null}
 

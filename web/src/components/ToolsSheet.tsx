@@ -1,9 +1,15 @@
 import {
   Accessibility,
+  Building2,
+  CalendarClock,
   CalendarDays,
+  Database,
   DoorOpen,
   Footprints,
+  GraduationCap,
   Languages,
+  LifeBuoy,
+  Radio,
 } from 'lucide-react';
 import { useI18n, type Language } from '../lib/i18n';
 import { Modal } from './Modal';
@@ -15,6 +21,12 @@ interface ToolsSheetProps {
   onClassrooms: () => void;
   onEvents: () => void;
   onAccessibility: () => void;
+  onPlanner: () => void;
+  onServices: () => void;
+  onIndoor: () => void;
+  onPulse: () => void;
+  onTour: () => void;
+  onMaintainer: () => void;
 }
 
 export function ToolsSheet({
@@ -24,14 +36,31 @@ export function ToolsSheet({
   onClassrooms,
   onEvents,
   onAccessibility,
+  onPlanner,
+  onServices,
+  onIndoor,
+  onPulse,
+  onTour,
+  onMaintainer,
 }: ToolsSheetProps) {
   const { t, language, setLanguage } = useI18n();
 
   const tiles = [
-    { label: t('more.routes'), icon: Footprints, onClick: onRoutes },
-    { label: t('more.classrooms'), icon: DoorOpen, onClick: onClassrooms },
-    { label: t('more.events'), icon: CalendarDays, onClick: onEvents },
-    { label: t('more.accessibility'), icon: Accessibility, onClick: onAccessibility },
+    { label: 'My campus day', icon: CalendarClock, onClick: onPlanner, primary: true },
+    { label: 'Find a service', icon: LifeBuoy, onClick: onServices, primary: true },
+    { label: 'Indoor guidance', icon: Building2, onClick: onIndoor, primary: true },
+    { label: 'Campus Pulse', icon: Radio, onClick: onPulse, primary: true },
+    { label: 'First day tour', icon: GraduationCap, onClick: onTour, primary: true },
+    { label: t('more.routes'), icon: Footprints, onClick: onRoutes, primary: false },
+    { label: t('more.classrooms'), icon: DoorOpen, onClick: onClassrooms, primary: false },
+    { label: t('more.events'), icon: CalendarDays, onClick: onEvents, primary: false },
+    {
+      label: t('more.accessibility'),
+      icon: Accessibility,
+      onClick: onAccessibility,
+      primary: false,
+    },
+    { label: 'Data maintainer', icon: Database, onClick: onMaintainer, primary: false },
   ];
 
   const languages: Array<{ id: Language; label: string }> = [
@@ -57,7 +86,11 @@ export function ToolsSheet({
                 onClose();
                 tile.onClick();
               }}
-              className="flex min-h-[76px] flex-col items-start gap-2 rounded-2xl border border-slate-200 bg-white p-3 text-left transition hover:border-slate-300 hover:bg-slate-50"
+              className={`flex min-h-[76px] flex-col items-start gap-2 rounded-2xl border p-3 text-left transition ${
+                tile.primary
+                  ? 'border-gold-500/40 bg-gold-500/5 hover:border-gold-500 hover:bg-gold-500/10'
+                  : 'border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50'
+              }`}
             >
               <span
                 aria-hidden="true"
@@ -95,6 +128,12 @@ export function ToolsSheet({
             ))}
           </div>
         </div>
+
+        <p className="mt-3 px-1 text-[10px] leading-relaxed text-slate-500">
+          The first five tools store anything personal (a schedule, tour progress or a report) in
+          this browser only. The service finder and indoor guidance show verified campus data;
+          where a survey does not exist, they say so instead of guessing.
+        </p>
       </div>
     </Modal>
   );

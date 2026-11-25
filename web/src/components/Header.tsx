@@ -1,6 +1,8 @@
 import { Contrast, Languages, MessageCircle, ScanLine, SlidersHorizontal } from 'lucide-react';
 import type { CampusLocation } from '../data/locations';
+import type { CampusService } from '../data/services';
 import type { SearchHit } from '../lib/search';
+import type { ServiceHit } from '../lib/services';
 import { useI18n } from '../lib/i18n';
 import { SearchBox } from './SearchBox';
 
@@ -9,6 +11,8 @@ interface HeaderProps {
   onQueryChange: (value: string) => void;
   results: SearchHit[];
   onSelectResult: (location: CampusLocation) => void;
+  serviceHits?: ServiceHit[];
+  onSelectService?: (service: CampusService) => void;
   isSearching: boolean;
   highContrast: boolean;
   onToggleContrast: () => void;
@@ -22,6 +26,8 @@ export function Header({
   onQueryChange,
   results,
   onSelectResult,
+  serviceHits,
+  onSelectService,
   isSearching,
   highContrast,
   onToggleContrast,
@@ -61,6 +67,8 @@ export function Header({
                 onChange={onQueryChange}
                 results={results}
                 onSelect={onSelectResult}
+                serviceHits={serviceHits}
+                onSelectService={onSelectService}
                 isSearching={isSearching}
               />
             </div>
@@ -134,6 +142,8 @@ export function Header({
             onChange={onQueryChange}
             results={results}
             onSelect={onSelectResult}
+            serviceHits={serviceHits}
+            onSelectService={onSelectService}
             isSearching={isSearching}
             placeholder={t('search.mobilePlaceholder')}
           />

@@ -1,11 +1,14 @@
-import { ArrowUpRight, ChevronRight, MapPin, SearchX } from 'lucide-react';
+import { ArrowUpRight, ChevronRight, LifeBuoy, MapPin, SearchX } from 'lucide-react';
 import {
   CAMPUS,
   CATEGORY_BY_ID,
+  LOCATION_BY_ID,
   PLACES_CHECKED_ON,
   type CampusLocation,
 } from '../data/locations';
+import { SERVICE_NEED_BY_ID, type CampusService } from '../data/services';
 import { groupByCategory, QUICK_SEARCHES } from '../lib/search';
+import type { ServiceHit } from '../lib/services';
 import { useI18n, type TranslationKey } from '../lib/i18n';
 
 interface ResultsPanelProps {
@@ -15,6 +18,8 @@ interface ResultsPanelProps {
   onSelect: (location: CampusLocation) => void;
   onQuickSearch: (query: string) => void;
   totalCount: number;
+  serviceHits?: ServiceHit[];
+  onSelectService?: (service: CampusService) => void;
 }
 
 function LocationRow({
@@ -72,10 +77,13 @@ export function ResultsPanel({
   onSelect,
   onQuickSearch,
   totalCount,
+  serviceHits = [],
+  onSelectService,
 }: ResultsPanelProps) {
   const { t } = useI18n();
   const trimmed = query.trim();
   const groups = groupByCategory(locations);
+  const serviceCount = serviceHits.length;
 
   return (
     <div className="flex h-full min-h-0 flex-col">
@@ -89,7 +97,7 @@ export function ResultsPanel({
       </div>
 
       <div className="nice-scroll min-h-0 flex-1 overflow-y-auto px-3 pb-4">
-        {locations.length === 0 ? (
+        {locations.length === 0 && serviceCount === 0 ? (
           <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-4 text-center">
             <SearchX aria-hidden="true" className="mx-auto h-6 w-6 text-slate-400" />
             <p className="mt-2 text-sm font-bold text-navy-900">
@@ -130,6 +138,50 @@ export function ResultsPanel({
                 onSelect={onSelect}
               />
             ))}
+
+            {serviceCount > 0 ? (
+              <div className="pt-2">
+                <h3 className="px-1 pb-1.5 text-[11px] font-extrabold uppercase tracking-wider text-slate-400">
+                  Campus services
+                </h3>
+                <div className="space-y-1">
+                  {serviceHits.map((hit) => {
+                    const place = LOCATION_BY_ID.get(hit.service.locationId);
+                    const need = SERVICE_NEED_BY_ID.get(hit.service.needId);
+                    return (
+                      <button
+                        key={hit.service.id}
+                        type="button"
+                        onClick={() => onSelectService?.(hit.service)}
+                        className="group flex w-full items-start gap-3 rounded-2xl border border-transparent bg-white p-3 text-left transition hover:border-slate-200 hover:shadow-sm"
+                      >
+                        <span
+                          aria-hidden="true"
+                          className="mt-0.5 grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-emerald-50 text-emerald-800"
+                        >
+                          <LifeBuoy className="h-4 w-4" />
+                        </span>
+                        <span className="min-w-0 flex-1">
+                          <span className="block truncate text-sm font-bold text-navy-900">
+                            {hit.service.title}
+                          </span>
+                          <span className="mt-0.5 block text-[11px] font-semibold uppercase tracking-wide text-slate-400">
+                            {need?.label ?? 'Service'} · {place?.shortName ?? 'Unmapped'}
+                          </span>
+                          <span className="mt-1 block line-clamp-2 text-xs leading-relaxed text-slate-500">
+                            {hit.service.details}
+                          </span>
+                        </span>
+                        <ChevronRight
+                          aria-hidden="true"
+                          className="mt-2 h-4 w-4 shrink-0 text-slate-300 transition group-hover:text-navy-700"
+                        />
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            ) : null}
           </div>
         ) : (
           <div className="space-y-4">

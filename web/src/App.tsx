@@ -29,7 +29,15 @@ import { ClassroomFinder } from './components/ClassroomFinder';
 import { EventsSheet } from './components/EventsSheet';
 import { AccessibilitySheet } from './components/AccessibilitySheet';
 import { ToolsSheet } from './components/ToolsSheet';
+import { PlannerSheet } from './components/PlannerSheet';
+import { ServicesSheet } from './components/ServicesSheet';
+import { IndoorSheet } from './components/IndoorSheet';
+import { PulseSheet } from './components/PulseSheet';
+import { TourSheet } from './components/TourSheet';
+import { MaintainerSheet } from './components/MaintainerSheet';
 import { BottomNav } from './components/BottomNav';
+import { searchServices } from './lib/services';
+import { parseIndoorCode, type IndoorCodeTarget } from './lib/indoor';
 import { Modal } from './components/Modal';
 
 function readPlaceFromUrl(): string | null {
@@ -62,6 +70,14 @@ export function App() {
   const [eventsOpen, setEventsOpen] = useState(false);
   const [accessibilityOpen, setAccessibilityOpen] = useState(false);
   const [showAccessibilityOnMap, setShowAccessibilityOnMap] = useState(false);
+  const [plannerOpen, setPlannerOpen] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
+  const [servicesQuery, setServicesQuery] = useState('');
+  const [indoorOpen, setIndoorOpen] = useState(false);
+  const [indoorTarget, setIndoorTarget] = useState<IndoorCodeTarget | null>(null);
+  const [pulseOpen, setPulseOpen] = useState(false);
+  const [tourOpen, setTourOpen] = useState(false);
+  const [maintainerOpen, setMaintainerOpen] = useState(false);
   const online = useOnlineStatus();
   const [highContrast, setHighContrast] = useState<boolean>(() => {
     try {
@@ -92,6 +108,8 @@ export function App() {
     () => results.map((hit) => hit.location),
     [results],
   );
+
+  const serviceHits = useMemo(() => searchServices(deferredQuery), [deferredQuery]);
 
   const selected = selectedId ? (LOCATION_BY_ID.get(selectedId) ?? null) : null;
 
@@ -156,6 +174,15 @@ export function App() {
     return () => window.removeEventListener('popstate', applyUrl);
   }, [openLocation]);
 
+  useEffect(() => {
+    const value = new URLSearchParams(window.location.search).get('indoor');
+    if (!value) return;
+    const target = parseIndoorCode(`mce-indoor:${value}`);
+    if (!target) return;
+    setIndoorTarget(target);
+    setIndoorOpen(true);
+  }, []);
+
   const focusSearch = (): void => {
     window.setTimeout(() => {
       const inputs = Array.from(
@@ -185,6 +212,12 @@ export function App() {
         onAssistant={() => setAssistantOpen(true)}
         onScan={() => setScannerOpen(true)}
         onTools={() => setToolsOpen(true)}
+        serviceHits={serviceHits}
+        onSelectService={(service) => {
+          setExploreOpen(false);
+          setServicesQuery(service.title);
+          setServicesOpen(true);
+        }}
       />
 
       {!online ? (
@@ -208,6 +241,12 @@ export function App() {
             onSelect={(location) => openLocation(location)}
             onQuickSearch={setQuery}
             totalCount={LOCATIONS.length}
+            serviceHits={serviceHits}
+            onSelectService={(service) => {
+              setExploreOpen(false);
+              setServicesQuery(service.title);
+              setServicesOpen(true);
+            }}
           />
         </aside>
 
@@ -270,6 +309,12 @@ export function App() {
             }}
             onQuickSearch={setQuery}
             totalCount={LOCATIONS.length}
+            serviceHits={serviceHits}
+            onSelectService={(service) => {
+              setExploreOpen(false);
+              setServicesQuery(service.title);
+              setServicesOpen(true);
+            }}
           />
         </div>
       </Modal>
@@ -288,6 +333,10 @@ export function App() {
         onClose={() => setScannerOpen(false)}
         onResolved={(location) => openLocation(location, { syncSearch: true })}
         onSearchInstead={handleSearchInstead}
+        onIndoorCode={(target) => {
+          setIndoorTarget(target);
+          setIndoorOpen(true);
+        }}
       />
 
       {directionsFor ? (
@@ -359,7 +408,87 @@ export function App() {
         onClassrooms={() => setClassroomsOpen(true)}
         onEvents={() => setEventsOpen(true)}
         onAccessibility={() => setAccessibilityOpen(true)}
+        onPlanner={() => setPlannerOpen(true)}
+        onServices={() => {
+          setServicesQuery('');
+          setServicesOpen(true);
+        }}
+        onIndoor={() => {
+          setIndoorTarget(null);
+          setIndoorOpen(true);
+        }}
+        onPulse={() => setPulseOpen(true)}
+        onTour={() => setTourOpen(true)}
+        onMaintainer={() => setMaintainerOpen(true)}
       />
+
+      <PlannerSheet
+        open={plannerOpen}
+        onClose={() => setPlannerOpen(false)}
+        onOpenLocation={(location) => {
+          setPlannerOpen(false);
+          openLocation(location);
+        }}
+        onCampusRoute={(location) => {
+          setPlannerOpen(false);
+          openCampusRoute(location);
+        }}
+      />
+
+      <ServicesSheet
+        open={servicesOpen}
+        initialQuery={servicesQuery}
+        onClose={() => setServicesOpen(false)}
+        onOpenLocation={(location) => {
+          setServicesOpen(false);
+          openLocation(location);
+        }}
+        onCampusRoute={(location) => {
+          setServicesOpen(false);
+          openCampusRoute(location);
+        }}
+      />
+
+      <IndoorSheet
+        open={indoorOpen}
+        target={indoorTarget}
+        onClose={() => {
+          setIndoorOpen(false);
+          setIndoorTarget(null);
+        }}
+        onOpenLocation={(location) => {
+          setIndoorOpen(false);
+          openLocation(location);
+        }}
+        onCampusRoute={(location) => {
+          setIndoorOpen(false);
+          openCampusRoute(location);
+        }}
+      />
+
+      <PulseSheet
+        open={pulseOpen}
+        onClose={() => setPulseOpen(false)}
+        onOpenLocation={(location) => {
+          setPulseOpen(false);
+          openLocation(location);
+        }}
+      />
+
+      <TourSheet
+        open={tourOpen}
+        onClose={() => setTourOpen(false)}
+        onOpenLocation={(location) => {
+          setTourOpen(false);
+          openLocation(location);
+        }}
+        onCampusRoute={(location) => {
+          setTourOpen(false);
+          openCampusRoute(location);
+        }}
+      />
+
+      <MaintainerSheet open={maintainerOpen} onClose={() => setMaintainerOpen(false)} />
 
       <p className="sr-only">
         Campus map data checked on 23 November 2026. {CAMPUS.name}, {CAMPUS.address}.
