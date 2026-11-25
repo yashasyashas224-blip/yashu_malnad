@@ -3,6 +3,7 @@ import {
   SERVICE_NEEDS,
   SERVICES,
   type CampusService,
+  type ServiceNeed,
   type ServiceNeedId,
 } from '../data/services';
 import { normalize } from './search';
@@ -82,3 +83,23 @@ export function allNeedsUnverified(): boolean {
 export const UNVERIFIED_NEEDS = SERVICE_NEEDS.filter(
   (need) => servicesForNeedId(need.id).length === 0,
 ).map((need) => need.id);
+
+const NEED_INDEX = SERVICE_NEEDS.map((need) => ({
+  need,
+  text: normalize([need.label, ...need.keywords, need.description].join(' ')),
+}));
+
+/**
+ * Needs a student searched for that have no verified location at all. Used by
+ * the search box so “printing” or “water” explains the gap instead of looking
+ * like a broken search.
+ */
+export function findUnverifiedNeeds(rawQuery: string): ServiceNeed[] {
+  const tokens = normalize(rawQuery).split(' ').filter(Boolean);
+  if (tokens.length === 0) return [];
+  return NEED_INDEX.filter(
+    (entry) =>
+      servicesForNeedId(entry.need.id).length === 0 &&
+      tokens.every((token) => entry.text.includes(token)),
+  ).map((entry) => entry.need);
+}

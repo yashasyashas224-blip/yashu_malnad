@@ -96,13 +96,12 @@ export function App() {
     }
   }, [highContrast]);
 
-  const results = useMemo(
-    () =>
-      searchLocations(filterByCategory(LOCATIONS, category), deferredQuery, {
-        limit: 20,
-      }),
-    [category, deferredQuery],
-  );
+  const results = useMemo(() => {
+    // A typed query searches every verified place; the category chips only
+    // narrow the browse list, so an active filter can never hide a search hit.
+    const pool = deferredQuery.trim() ? LOCATIONS : filterByCategory(LOCATIONS, category);
+    return searchLocations(pool, deferredQuery, { limit: 20 });
+  }, [category, deferredQuery]);
 
   const resultLocations = useMemo(
     () => results.map((hit) => hit.location),
@@ -216,6 +215,11 @@ export function App() {
         onSelectService={(service) => {
           setExploreOpen(false);
           setServicesQuery(service.title);
+          setServicesOpen(true);
+        }}
+        onOpenServices={(query) => {
+          setExploreOpen(false);
+          setServicesQuery(query);
           setServicesOpen(true);
         }}
       />

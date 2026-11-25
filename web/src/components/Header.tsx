@@ -13,6 +13,7 @@ interface HeaderProps {
   onSelectResult: (location: CampusLocation) => void;
   serviceHits?: ServiceHit[];
   onSelectService?: (service: CampusService) => void;
+  onOpenServices?: (query: string) => void;
   isSearching: boolean;
   highContrast: boolean;
   onToggleContrast: () => void;
@@ -28,6 +29,7 @@ export function Header({
   onSelectResult,
   serviceHits,
   onSelectService,
+  onOpenServices,
   isSearching,
   highContrast,
   onToggleContrast,
@@ -69,6 +71,7 @@ export function Header({
                 onSelect={onSelectResult}
                 serviceHits={serviceHits}
                 onSelectService={onSelectService}
+                onOpenServices={onOpenServices}
                 isSearching={isSearching}
               />
             </div>
@@ -144,6 +147,7 @@ export function Header({
             onSelect={onSelectResult}
             serviceHits={serviceHits}
             onSelectService={onSelectService}
+            onOpenServices={onOpenServices}
             isSearching={isSearching}
             placeholder={t('search.mobilePlaceholder')}
           />

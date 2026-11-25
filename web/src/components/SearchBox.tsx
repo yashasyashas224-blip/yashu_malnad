@@ -10,6 +10,7 @@ import {
 import { SERVICE_NEED_BY_ID, type CampusService } from '../data/services';
 import type { SearchHit } from '../lib/search';
 import type { ServiceHit } from '../lib/services';
+import { findUnverifiedNeeds } from '../lib/services';
 import { useI18n, type TranslationKey } from '../lib/i18n';
 
 interface SearchBoxProps {
@@ -19,6 +20,7 @@ interface SearchBoxProps {
   onSelect: (location: CampusLocation) => void;
   serviceHits?: ServiceHit[];
   onSelectService?: (service: CampusService) => void;
+  onOpenServices?: (query: string) => void;
   isSearching: boolean;
   placeholder?: string;
   inputId?: string;
@@ -31,6 +33,7 @@ export function SearchBox({
   onSelect,
   serviceHits = [],
   onSelectService,
+  onOpenServices,
   isSearching,
   placeholder,
   inputId,
@@ -53,6 +56,10 @@ export function SearchBox({
     activeIndex >= 0 && activeIndex < results.length ? results[activeIndex] : undefined;
   const activeService =
     activeIndex >= results.length ? services[activeIndex - results.length] : undefined;
+  const missingNeed =
+    !isSearching && results.length === 0 && services.length === 0
+      ? findUnverifiedNeeds(value)[0]
+      : undefined;
 
   useEffect(() => {
     setActiveIndex(-1);
@@ -193,6 +200,30 @@ export function SearchBox({
               <Loader2 aria-hidden="true" className="h-4 w-4 animate-spin" />
               {t('search.searching')}
             </div>
+          ) : missingNeed ? (
+            <div className="px-4 py-4">
+              <p className="text-sm font-semibold text-navy-900">
+                No verified {missingNeed.label.toLowerCase()} location yet
+              </p>
+              <p className="mt-1 text-xs leading-relaxed text-slate-500">
+                {missingNeed.description} MCE has not published a checked position for this, so
+                the map does not guess one.
+              </p>
+              {onOpenServices ? (
+                <button
+                  type="button"
+                  onPointerDown={(event) => event.preventDefault()}
+                  onClick={() => {
+                    onOpenServices(missingNeed.label);
+                    setFocused(false);
+                    inputRef.current?.blur();
+                  }}
+                  className="mt-3 inline-flex items-center gap-1.5 rounded-lg bg-navy-900 px-3 py-2 text-xs font-bold text-white transition hover:bg-navy-800"
+                >
+                  Open Find a service
+                </button>
+              ) : null}
+            </div>
           ) : results.length === 0 && services.length === 0 ? (
             <div className="px-4 py-4">
               <p className="text-sm font-semibold text-navy-900">
@@ -220,6 +251,9 @@ export function SearchBox({
                   id={optionId(index)}
                   role="option"
                   aria-selected={index === activeIndex}
+                  onPointerDown={(event) => {
+                    event.preventDefault();
+                  }}
                   onMouseDown={(event) => {
                     event.preventDefault();
                     choose(hit.location);
@@ -266,6 +300,9 @@ export function SearchBox({
                     id={optionId(index)}
                     role="option"
                     aria-selected={index === activeIndex}
+                    onPointerDown={(event) => {
+                      event.preventDefault();
+                    }}
                     onMouseDown={(event) => {
                       event.preventDefault();
                       chooseService(hit.service);
